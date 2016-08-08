@@ -1,8 +1,13 @@
+#' @title gridData
+#' @description This function summarizes data onto a grid, creates PBSmapping polySet and polyData 
+#' @param \code{Data} = PBSmapping::EventData
+#' @param \code{domain.poly} = polygon the defines the total area from which to construct the grid, dervied from data if missing
+#' @param \code{lvls} = levels
+#' @author Brad Hubley 
 #' @export
-#' @export
+
 gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.size=1,aspr="calculate",sx,sy,ex,ey) {  
 
-#// summarizes data onto a grid, creates PBSmapping polySet and polyData 
 	print("Mike's a dork")
 	require(PBSmapping)
 	require(RColorBrewer)
