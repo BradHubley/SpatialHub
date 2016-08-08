@@ -1,10 +1,8 @@
+#'	designAnal
+#' description Analysis Efficiency Against Simple Random with "BIOsurvey" or "PEDstrata" package 
 #' @export
-	# source("Y:/Assessment/2009/r/fn/design functions/design.anal.r")
-	
-	
-# Analysis Efficiency Against Simple Random with "BIOsurvey" package 
 
-design.anal<-function(restrat.dat,restrat.areas,original.dat=NULL,original.areas=NULL,years=2007:1981,plot=T,domain=T,biomass=F){
+designAnal<-function(restrat.dat,restrat.areas,original.dat=NULL,original.areas=NULL,years=2007:1981,plot=T,domain=T,biomass=F){
 	
 	print("design.anal start")
 	print(Sys.time())

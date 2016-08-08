@@ -1,2 +1,2 @@
-# SpatialTools
-For spatial analysis of fisheries data
+# SpatialHub
+Survey design and spatial analysis of fisheries data — Edit

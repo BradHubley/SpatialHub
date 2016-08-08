@@ -1,7 +1,7 @@
-#' @export
+#' smoothing
 
-# smoothing.r ("Y:/Development/Georges/Survey Design/r/fn/smoothing.r"):
-# applies a function on spatial data over a grid
+#' description applies a function on spatial data over a grid
+#' @export
 
 smoothing<-function(dat,fun=mean,res=0.01,aspr=1.345640,no.data='0',matrix=F,procedure=1,subset.poly=NULL,expand=0.1){
 	

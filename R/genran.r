@@ -1,7 +1,6 @@
-#' @export
-#	source("Y:/INSHORE SCALLOP/Survey/2010/r/fn/genran")
 
-# Generates random points in a polygon (PBSmapping format)
+#' description Generates random points in a polygon (PBSmapping format)
+#' @export
 
 genran<-function(npoints,bounding.poly,projection="LL",mindist=NULL){
 

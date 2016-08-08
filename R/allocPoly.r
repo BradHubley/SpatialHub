@@ -5,7 +5,7 @@
 # based on bottom type (or another polygon based non-continuous stratifying variable)
 
 	
-alloc.poly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.tows=NULL, map=NULL,lplace='bottomleft',show.pool=F,UTMzone){
+allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.tows=NULL, map=NULL,lplace='bottomleft',show.pool=F,UTMzone){
 		
 	
 	options(warn=-1)

@@ -1,9 +1,9 @@
+#' defineStrata
+#' @description defines strata boundaries using the sqrt(f(y)) rule (Cochran 1977)
+
 #' @export
 
-# tick.def function: ("Y:/Development/Georges/Survey Design/r/fn/tick.def.r"): 
-# defines ticks or strata boundaries using the sqrt(f(y)) rule
-
-define.strata<-function(char,nstrata=4,min.str=0,max.str,place=0){
+defineStrata<-function(char,nstrata=4,min.str=0,max.str,place=0){
 	
 	
 	bin<-round(char,place)
@@ -37,5 +37,3 @@ define.strata<-function(char,nstrata=4,min.str=0,max.str,place=0){
 	str
 	
 }
-# blank.bank.r ("Y:/Development/Georges/Survey Design/r/fn/blank.bank.r"): 
-# incorporates blanking distance by including zeros spaced eqully at the average nearest nieghbour distance, default blanking distance is the nearest neighbour distance of the most isolated point

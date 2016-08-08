@@ -1,14 +1,12 @@
+#' imagePrep
+
+#' description Called by interpolation to preform the interpolation and return image data
+#' @param  dat = a dataframe with 3 columns (longitude, latitude, variable to be mapped)
+#' @param  aspr = aspect ratio for a given latitude (default is for 45 deg.)
+#' @param  res = resolution of image in decimal degrees
 #' @export
 
-
-# image prep : Called by interpolation to preform the interpolation and return image data
-
-# Arguments:
-# dat = a dataframe with 3 columns (longitude, latitude, variable to be mapped)
-# aspr = aspect ratio for a given latitude (default is for 45 deg.)
-# res = resolution of image in decimal degrees
-
-image.prep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,method='gstat',matrix.dat=T,idp=0.5,nmax=7,maxdist=Inf,linear=F, subset.poly=NULL, covariate.dat=NULL,regrid=F,mod.type="Sph",subscale=0.01){
+imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,method='gstat',matrix.dat=T,idp=0.5,nmax=7,maxdist=Inf,linear=F, subset.poly=NULL, covariate.dat=NULL,regrid=F,mod.type="Sph",subscale=0.01){
 
 	require (splancs)
 	require (akima)

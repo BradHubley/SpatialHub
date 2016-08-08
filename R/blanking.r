@@ -1,3 +1,5 @@
+#' blanking
+#' @description incorporates blanking distance by including zeros spaced eqully at the average nearest nieghbour distance, default blanking distance is the nearest neighbour distance of the most isolated point
 #' @export
 
 blanking<-function(surv.dat,blank.dist,aspr=aspr, type=1, eff=0,scale=0.5,type.scaler=0.5){

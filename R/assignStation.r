@@ -1,5 +1,3 @@
-#' @export
-#' @export
 #' @title assignStation
 #' @description couldn't accurately describe
 #' @family overly specific
