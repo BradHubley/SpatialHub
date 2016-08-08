@@ -1,16 +1,16 @@
-#' @title convert.dd.dddd
+#' @title convertDecDeg
 #' @description This function can convert various formats to decimal degrees or to degrees-minutes
 #' @param \code{x} = coordinates
 #' @param \code{format} = dec.deg Acceptable values include dec.deg, deg.min
 #' @author Brad Hubley 
 #' @examples
-#' convert.dd.dddd(4730.3)
+#' convertDecDeg(4730.3)
 #' [1] 47.505
-#' convert.dd.dddd(47.505, 'deg.min')
+#' convertDecDeg(47.505, 'deg.min')
 #' [1] 4730.3
 #' @family coordinate converters
 #' @export
-convert.dd.dddd<-function(x,format='dec.deg'){
+convertDecDeg<-function(x,format='dec.deg'){
 	
 	if(format=='dec.deg'){
 		dat<-data.frame(ddmm.mm=x,dd.dddd=NA)

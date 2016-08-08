@@ -14,6 +14,6 @@ couldn't accurately describe
 unknown, \email{<unknown>@dfo-mpo.gc.ca}
 }
 \seealso{
-Other res: \code{\link{convert.dd.dddd}}
+Other res: \code{\link{convertDecDeg}}
 }
 
