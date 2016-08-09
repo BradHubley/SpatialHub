@@ -13,7 +13,7 @@ imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,met
 	require (gstat)
 	require (fields)
 	
-	print("image.prep start")
+	print("imagePrep start")
 	print(Sys.time())
 
 	if(missing(dat))dat<-data.frame(X,Y,Z)

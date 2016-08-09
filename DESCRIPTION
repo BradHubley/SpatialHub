@@ -1,7 +1,7 @@
-Package: SpatialTools
-Title: What the Package Does (one line, title case)
+Package: SpatialHub
+Title: Survey Design and Spatial Analysis of Fisheries Data
 Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Authors@R: person("Brad", "Hubley", email = "brad.hubley@dfo-mpo.gc.ca", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends:
     R (>= 3.3.1)

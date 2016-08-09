@@ -100,7 +100,7 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 	}
 
 	if(interp.method!='none'){
-		image.lst<-image.prep(dat=contour.dat,method=interp.method,nmax=nmax,idp=idp,log.dat=log.dat,res=res,aspr=aspr,linear=linear,covariate.dat=covariate.dat,regrid=regrid,mod.type=mod.type,subscale=subscale, subset.poly=subset.poly)
+		image.lst<-imagePrep(dat=contour.dat,method=interp.method,nmax=nmax,idp=idp,log.dat=log.dat,res=res,aspr=aspr,linear=linear,covariate.dat=covariate.dat,regrid=regrid,mod.type=mod.type,subscale=subscale, subset.poly=subset.poly)
 		image.dat<-image.lst[[1]]
 		image.var<-image.lst[[2]]
 		image.mod<-image.lst[[3]]
