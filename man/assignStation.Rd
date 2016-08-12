@@ -7,13 +7,25 @@
 assignStation(events, maxdist = 0.01, res = 0.005, expwin = 0.05,
   map = NULL, lines = F, ...)
 }
+\arguments{
+\item{events}{= PBSmapping::EventData of tows}
+
+\item{maxdist}{= maximum distance between points considered to be the same statiom}
+
+\item{res}{= resolution of the spatstat::distmap}
+
+\item{expwin}{= expansion window beyond supplied points that defines the area examined}
+
+\item{map}{= preset location to pass to bioMap}
+
+\item{lines}{= logical, if TRUE X1, Y1, X2, Y2 must be supplied to describe the tows}
+
+\item{...}{additional arguments passed to bioMap}
+}
 \description{
-couldn't accurately describe
+Assigns station number to tows based on proximity. Currently
 }
 \author{
-unknown, \email{<unknown>@dfo-mpo.gc.ca}
-}
-\seealso{
-Other res: \code{\link{convertDecDeg}}
+Brad Hubley
 }
 

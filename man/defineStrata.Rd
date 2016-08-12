@@ -6,7 +6,21 @@
 \usage{
 defineStrata(char, nstrata = 4, min.str = 0, max.str, place = 0)
 }
+\arguments{
+\item{char}{= vector of values of the variable used to define strata}
+
+\item{nstrata}{= number of strata desired}
+
+\item{min.str}{= minimum value of stratifing variable considered}
+
+\item{max.str}{= maximum value of stratifing variable considered}
+
+\item{place}{= decimal places used to define strata boundaries}
+}
 \description{
 defines strata boundaries using the sqrt(f(y)) rule (Cochran 1977)
+}
+\author{
+Brad Hubley
 }
 

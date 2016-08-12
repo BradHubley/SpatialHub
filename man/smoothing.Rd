@@ -8,8 +8,7 @@ description applies a function on spatial data over a grid}
 smoothing(dat, fun = mean, res = 0.01, aspr = 1.34564, no.data = "0",
   matrix = F, procedure = 1, subset.poly = NULL, expand = 0.1)
 }
-\description{
-smoothing
-description applies a function on spatial data over a grid
+\author{
+Brad Hubley
 }
 

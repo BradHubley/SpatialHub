@@ -1,6 +1,12 @@
-#' defineStrata
+#' @title defineStrata
 #' @description defines strata boundaries using the sqrt(f(y)) rule (Cochran 1977)
+#' @param char = vector of values of the variable used to define strata
+#' @param nstrata = number of strata desired
+#' @param min.str = minimum value of stratifing variable considered
+#' @param max.str = maximum value of stratifing variable considered
+#' @param place = decimal places used to define strata boundaries
 
+#' @author Brad Hubley 
 #' @export
 
 defineStrata<-function(char,nstrata=4,min.str=0,max.str,place=0){

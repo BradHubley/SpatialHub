@@ -1,12 +1,20 @@
-#' imagePrep
+#' @title imagePrep
 
 #' description Called by interpolation to preform the interpolation and return image data
-#' @param  dat = a dataframe with 3 columns (longitude, latitude, variable to be mapped)
-#' @param  aspr = aspect ratio for a given latitude (default is for 45 deg.)
-#' @param  res = resolution of image in decimal degrees
+#' @param dat = a dataframe with 3 columns (longitude, latitude, variable to be mapped)
+#' @param aspr = aspect ratio for a given latitude (default is for 45 deg.)
+#' @param res = resolution of image in decimal degrees
+#' @param method = 'gstat' = gstat (idw) function from gstat library, 'krige' = krige function from gstat library, 'none' = no interpolation function
+#' @param maxdist, nmax, idp, mod.type = arguments to be passed to gstat function (idp is inverse distance power)
+#' @param log.dat = logical, whether to log data
+#' @param covariate.dat = covariate data typically used in kriging
+#' @param subset.poly = inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)
+#' @param subset.eff = sets values to this outside the subset.poly
+#' @param subscale = size of inset when subset.poly = 'square'
+#' @author Brad Hubley 
 #' @export
 
-imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,method='gstat',matrix.dat=T,idp=0.5,nmax=7,maxdist=Inf,linear=F, subset.poly=NULL, covariate.dat=NULL,regrid=F,mod.type="Sph",subscale=0.01){
+imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,method='gstat',matrix.dat=T,idp=0.5,nmax=7,maxdist=Inf, subset.poly=NULL, covariate.dat=NULL,regrid=F,mod.type="Sph",subscale=0.01){
 
 	require (splancs)
 	require (akima)

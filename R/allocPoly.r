@@ -1,13 +1,23 @@
-#' @export
-#	source("Y:/INSHORE SCALLOP/Survey/2010/r/fn/alloc.poly.r")
 
-# ALLOCATION by STRATIFIED RANDOM DESIGN
-# based on bottom type (or another polygon based non-continuous stratifying variable)
+#' @title allocPoly
+#' @description ALLOCATION by STRATIFIED RANDOM DESIGN based on bottom type (or another polygon based non-continuous stratifying variable)
+#' @param poly.lst = list containing PBSmapping::PolySet and PBSmapping::PolyData that describe strata polygons, PolyData may contain allocation to specifiy the number of station to be selected for each strata and repeats to indicate how many stations should be selected from repeated.tows
+#' @param bounding.poly = PBSmapping::PolySet describing the area to be surveyed
+#' @param n.tows = total number of stations to be selected
+#' @param mindist = minimum distance (km) or buffer between stations 
+#' @param pool.size = multiplyer to n.tows. This function first generates a pool of random locations, then randomly selects from the pool stations that fulfill the criteria (allocation by strata, buffer distance, etc.)  
+#' @param repeated.tows = PBSmapping::EventData of previous stations to be selected from if repeats exist in poly.lst[[2]] (PolyData)
+#' @param map = preset location to pass to bioMap
+#' @param lplace = placement of legend if !is.null(map)
+#' @param show.pool = logical, if TRUE the initial pool of random stations is plotted on the map
+#' @param UTMzone = PBSmapping::PolySet attribute, auto-generated if missing
+#' @author Brad Hubley 
+#' @export
 
 	
 allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.tows=NULL, map=NULL,lplace='bottomleft',show.pool=F,UTMzone){
 		
-	
+	require(PBSmapping)
 	options(warn=-1)
 	# create pool of random points
 	if(missing(ntows))ntows<-sum(poly.lst[[2]]$allocation)
@@ -118,8 +128,7 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 	if(!is.null(repeated.tows))Tows<-list(new.tows=Tows, repeated.tows=repeated.tows)
 
 	if(!is.null(map)){
-		loadfunctions('lobster')
-		LobsterMap(map,poly.lst=list(surveyed.polys,poly.lst[[2]]))
+		bioMap(map,poly.lst=list(surveyed.polys,poly.lst[[2]]))
 		bg.col<-tapply(poly.lst[[2]]$col,poly.lst[[2]]$PName,unique)
 		if(is.null(repeated.tows))addPoints(Tows,pch=21, cex=1,bg=bg.col[as.character(Tows$STRATA)])
 		if(!is.null(repeated.tows)){

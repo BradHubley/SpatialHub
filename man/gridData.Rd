@@ -13,6 +13,18 @@ gridData(Data, domain.poly, lvls, bcol = "YlGnBu", border = 1, FUN = mean,
 \item{\code{domain.poly}}{= polygon the defines the total area from which to construct the grid, dervied from data if missing}
 
 \item{\code{lvls}}{= levels}
+
+\item{\code{bcol}}{= RColorBrewer color palette}
+
+\item{\code{border}}{= polygon border}
+
+\item{\code{FUN}}{= summary function to apply to data within a grid cell}
+
+\item{\code{grid.size}}{= size of the grid cells (km)}
+
+\item{\code{aspr}}{= aspect ratio for for creating square grid, default is to calculate from data}
+
+\item{\code{sx, sy, ex, ey}}{= defines total extent to grid, defaults to the extent of the data}
 }
 \description{
 This function summarizes data onto a grid, creates PBSmapping polySet and polyData

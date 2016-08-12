@@ -1,6 +1,7 @@
-#' smoothing
+#' @title smoothing
 
 #' description applies a function on spatial data over a grid
+#' @author Brad Hubley 
 #' @export
 
 smoothing<-function(dat,fun=mean,res=0.01,aspr=1.345640,no.data='0',matrix=F,procedure=1,subset.poly=NULL,expand=0.1){

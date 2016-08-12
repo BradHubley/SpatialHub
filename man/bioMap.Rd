@@ -52,7 +52,7 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
 \item{bathcol}{= topolines line color, default is transparent brown}
 }
 \description{
-bioMap
+a customizable mapping function that uses PBSmapping to plot fisheries data, bathymetry and mangement boundaries.
 }
 \examples{
 bioMap(area='34')

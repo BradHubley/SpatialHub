@@ -1,16 +1,25 @@
-#'	designAnal
-#' description Analysis Efficiency Against Simple Random with "BIOsurvey" or "PEDstrata" package 
+#' @title designAnal
+#' description Analysis of efficiency gains from stratified randon versus simple random with "BIOsurvey" or "PEDstrata" package. This function needs work! :( 
+#' @param restrat.dat = dataset that conatins four columns (Year, sampleID, strataID, response variable)
+#' @param restrat.areas = vector of strata areas or matrix if strata areas change by year
+#' @param original.strata = if restratifying, order of tows is the same as restrat.dat
+#' @param original.areas = if restratifying
+#' @param years = to analyse
+#' @param plot = logical, to produce plot
+#' @param domain = logical, to use a domain estimator when restratifying
+
+#' @author Brad Hubley 
 #' @export
 
-designAnal<-function(restrat.dat,restrat.areas,original.dat=NULL,original.areas=NULL,years=2007:1981,plot=T,domain=T,biomass=F){
+designAnal<-function(restrat.dat,restrat.areas,original.strata=NULL,original.areas=NULL,years=2007:1981,plot=T,domain=T,biomass=F){
 	
 	print("design.anal start")
 	print(Sys.time())
 	
 	
-	require(PEDstrata)
+	require(PEDstrata)|| stop("Find and Install PEDstrata Package")
 	names(restrat.dat)<-c('year','tow','STRATA.ID','resp')
-	restrat.dat$orig.strata<-original.dat$new.stratum
+	restrat.dat$orig.strata<-original.strata
 	
 	strat.anal<-list(NULL)
 	

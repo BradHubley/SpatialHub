@@ -7,8 +7,8 @@ description Called by interpolation to preform the interpolation and return imag
 \usage{
 imagePrep(X, Y, Z, dat, aspr = 1.34564, res = 0.02, summary.dat = F,
   log.dat = T, method = "gstat", matrix.dat = T, idp = 0.5, nmax = 7,
-  maxdist = Inf, linear = F, subset.poly = NULL, covariate.dat = NULL,
-  regrid = F, mod.type = "Sph", subscale = 0.01)
+  maxdist = Inf, subset.poly = NULL, covariate.dat = NULL, regrid = F,
+  mod.type = "Sph", subscale = 0.01)
 }
 \arguments{
 \item{dat}{= a dataframe with 3 columns (longitude, latitude, variable to be mapped)}
@@ -16,9 +16,22 @@ imagePrep(X, Y, Z, dat, aspr = 1.34564, res = 0.02, summary.dat = F,
 \item{aspr}{= aspect ratio for a given latitude (default is for 45 deg.)}
 
 \item{res}{= resolution of image in decimal degrees}
+
+\item{log.dat}{= logical, whether to log data}
+
+\item{method}{= 'gstat' = gstat (idw) function from gstat library, 'krige' = krige function from gstat library, 'none' = no interpolation function}
+
+\item{maxdist, }{nmax, idp, mod.type = arguments to be passed to gstat function (idp is inverse distance power)}
+
+\item{subset.poly}{= inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)}
+
+\item{covariate.dat}{= covariate data typically used in kriging}
+
+\item{subscale}{= size of inset when subset.poly = 'square'}
+
+\item{subset.eff}{= sets values to this outside the subset.poly}
 }
-\description{
-imagePrep
-description Called by interpolation to preform the interpolation and return image data
+\author{
+Brad Hubley
 }
 

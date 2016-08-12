@@ -2,7 +2,13 @@
 #' @description This function summarizes data onto a grid, creates PBSmapping polySet and polyData 
 #' @param \code{Data} = PBSmapping::EventData
 #' @param \code{domain.poly} = polygon the defines the total area from which to construct the grid, dervied from data if missing
-#' @param \code{lvls} = levels
+#' @param \code{lvls} = levels 
+#' @param \code{bcol} = RColorBrewer color palette
+#' @param \code{border} = polygon border
+#' @param \code{FUN} = summary function to apply to data within a grid cell
+#' @param \code{grid.size} = size of the grid cells (km)
+#' @param \code{aspr} = aspect ratio for for creating square grid, default is to calculate from data
+#' @param \code{sx,sy,ex,ey} = defines total extent to grid, defaults to the extent of the data
 #' @author Brad Hubley 
 #' @export
 

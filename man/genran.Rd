@@ -2,11 +2,21 @@
 % Please edit documentation in R/genran.r
 \name{genran}
 \alias{genran}
-\title{description Generates random points in a polygon (PBSmapping format)}
+\title{genran
+description Generates random points in a polygon (PBSmapping format), called by allocPoly}
 \usage{
 genran(npoints, bounding.poly, projection = "LL", mindist = NULL)
 }
-\description{
-description Generates random points in a polygon (PBSmapping format)
+\arguments{
+\item{npoints}{= total number of stations to be selected}
+
+\item{bounding.poly}{= PBSmapping::PolySet describing the area to be surveyed}
+
+\item{projection}{= PBSmapping::PolySet attribute, default is Lat. and Lon.}
+
+\item{mindist}{= minimum distance (km) or buffer between stations}
+}
+\author{
+Brad Hubley
 }
 

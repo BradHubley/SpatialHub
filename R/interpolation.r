@@ -1,32 +1,28 @@
+#' @title interpolation
+#' @description preforms a spatial interpolation either inverse distance weighted or kriging.
+#' @param ticks = contour lines or strata definitions, 'define' will determine them according to the f(x) rule from Cochran 1977 (see Hubley et al. 2009)
+#' @param nstrata = number of strata when ticks='define'
+#' @param str.max = maximum value for stratifying variable (all values greater will be set at maximum)
+#' @param str.min = minimum value for stratifying variable (all values lesser will be set to NA )
+#' @param place = rounding place for defining strata
+#' @param aspr = aspect ratio for for creating square grid, will determine from data if missing
+#' @param interp.method = 'gstat' = gstat (idw) function from gstat library, 'krige' = krige function from gstat library, 'none' = no interpolation function
+#' @param res = resolution for interpolation
+#' @param maxdist, nmax, idp, mod.type = arguments to be passed to interpolation function (idp is inverse distance power)
+#' @param smooth = logical, TRUE calls smoothing function
+#' @param smooth.fun = applies smooth.fun to data over a grid
+#' @param sres = resolution for smoothing (grid)
+#' @param no.data = how to treat missing data when smoothing, default is to assume zero
+#' @param blank = TRUE calls blanking function, included blanking distance, beyond which if no data are present zeros are assigned or blank.eff
+#' @param blank.dist = blanking distance if missing will select the shortest distance to the most isolated point
+#' @param blank.type = how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance
+#' @param log.dat = logical, whether to log data
+#' @param covariate.dat = covariate data typically used in kriging
+#' @param subset.poly = inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)
+#' @param subset.eff = sets values to this outside the subset.poly
+#' @param subscale = size of inset when subset.poly = 'square'
+#' @author Brad Hubley 
 #' @export
-#	source("fn/interpolation.r")
-
-
-	#|------------|#
-   ##| Arguements |##
-	#|------------|#
-
-# ticks = contour lines or strata definitions, 'define' will determine them according to the f(x) rule from Cochran 1977 (see Hubley et al. 2009)
-# nstrata = number of strata when ticks='define'
-# str.max = maximum value for stratifying variable (all values greater will be set at maximum)
-# str.min = minimum value for stratifying variable (all values lesser will be set to NA )
-# place = rounding place for defining strata
-# aspr = aspect ratio for for creating square grid, will determine from data if missing
-# interp.method = 'gstat' = gstat (idw) function from gstat library, 'krige' = krige function from gstat library, 'none' = no interpolation function
-# res = resolution for interpolation
-# maxdist, nmax, idp, mod.type = arguments to be passed to interpolation function (idp is inverse distance power)
-# smooth = logical, TRUE calls smoothing function
-# smooth.fun = applies smooth.fun to data over a grid
-# sres = resolution for smoothing (grid)
-# no.data = how to treat missing data when smoothing, default is to assume zero
-# blank = TRUE calls blanking function, included blanking distance, beyond which if no data are present zeros are assigned or blank.eff
-# blank.dist = blanking distance if missing will select the shortest distance to the most isolated point
-# blank.type = how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance
-# log.dat = logical, whether to log data
-# covariate.dat = covariate data typically used in kriging
-# subset.poly = inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)
-# subset.eff = sets values to this outside the subset.poly
-# subscale = size of inset when subset.poly = 'square'
 
 
 

@@ -1,7 +1,13 @@
 #' @title assignStation
-#' @description couldn't accurately describe
-#' @family overly specific
-#' @author  unknown, \email{<unknown>@@dfo-mpo.gc.ca}
+#' @description Assigns station number to tows based on proximity. Currently
+#' @param events = PBSmapping::EventData of tows
+#' @param maxdist = maximum distance between points considered to be the same statiom
+#' @param res = resolution of the spatstat::distmap
+#' @param expwin = expansion window beyond supplied points that defines the area examined 
+#' @param map = preset location to pass to bioMap
+#' @param lines = logical, if TRUE X1, Y1, X2, Y2 must be supplied to describe the tows
+#' @param ... additional arguments passed to bioMap
+#' @author Brad Hubley 
 #' @export
 assignStation <- function(events,maxdist=0.01,res=0.005,expwin=0.05,map=NULL,lines=F,...){
 
@@ -39,8 +45,7 @@ assignStation <- function(events,maxdist=0.01,res=0.005,expwin=0.05,map=NULL,lin
 	polys <- CP$PolySet
 
 	if(!is.null(map)){
-		bioLibrary('lobster')
-		LobsterMap(map,...)
+		bioMap(map,...)
 		addPolys(polys,col=rgb(0,0,1,0.3))
 		if(lines==F)addPoints(events,pch='.',col='red')
 		if(lines==T)addLines(towlines,col=rgb(1,0,0,0.3))

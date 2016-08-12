@@ -1,8 +1,15 @@
-#' blanking
-#' @description incorporates blanking distance by including zeros spaced eqully at the average nearest nieghbour distance, default blanking distance is the nearest neighbour distance of the most isolated point
+#' @title blanking
+#' @description incorporates blanking distance by including zeros spaced eqully at the average nearest nieghbour distance, default blanking distance is the nearest neighbour distance of the most isolated point. Called by interpolation.
+#' @param surv.dat = data.frame of points containing X and Y coordinates
+#' @param blank.dist = distance at which zeros are inserted into the data set, defaults to the largest nearest neighbour distance i.e. the distance to the most isolated point in the data
+#' @param aspr = aspect ratio for for creating square grid
+#' @param type = how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance
+#' @param eff = what data is inserted, intended for zeros
+#' @param scale = how far beyond the range of the data are points inserted
+#' @author Brad Hubley 
 #' @export
 
-blanking<-function(surv.dat,blank.dist,aspr=aspr, type=1, eff=0,scale=0.5,type.scaler=0.5){
+blanking<-function(surv.dat,blank.dist,aspr, type=1, eff=0,scale=0.5,type.scaler=0.5){
 	
 	require(spatstat)
 #    browser()

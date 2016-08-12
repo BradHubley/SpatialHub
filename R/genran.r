@@ -1,5 +1,10 @@
-
-#' description Generates random points in a polygon (PBSmapping format)
+#' @title genran
+#' description Generates random points in a polygon (PBSmapping format), called by allocPoly
+#' @param npoints = total number of stations to be selected
+#' @param bounding.poly = PBSmapping::PolySet describing the area to be surveyed
+#' @param projection = PBSmapping::PolySet attribute, default is Lat. and Lon. 
+#' @param mindist = minimum distance (km) or buffer between stations 
+#' @author Brad Hubley 
 #' @export
 
 genran<-function(npoints,bounding.poly,projection="LL",mindist=NULL){

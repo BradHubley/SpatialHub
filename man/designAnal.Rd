@@ -3,14 +3,28 @@
 \name{designAnal}
 \alias{designAnal}
 \title{designAnal
-description Analysis Efficiency Against Simple Random with "BIOsurvey" or "PEDstrata" package}
+description Analysis of efficiency gains from stratified randon versus simple random with "BIOsurvey" or "PEDstrata" package. This function needs work! :(}
 \usage{
-designAnal(restrat.dat, restrat.areas, original.dat = NULL,
+designAnal(restrat.dat, restrat.areas, original.strata = NULL,
   original.areas = NULL, years = 2007:1981, plot = T, domain = T,
   biomass = F)
 }
-\description{
-designAnal
-description Analysis Efficiency Against Simple Random with "BIOsurvey" or "PEDstrata" package
+\arguments{
+\item{restrat.dat}{= dataset that conatins four columns (Year, sampleID, strataID, response variable)}
+
+\item{restrat.areas}{= vector of strata areas or matrix if strata areas change by year}
+
+\item{original.strata}{= if restratifying, order of tows is the same as restrat.dat}
+
+\item{original.areas}{= if restratifying}
+
+\item{years}{= to analyse}
+
+\item{plot}{= logical, to produce plot}
+
+\item{domain}{= logical, to use a domain estimator when restratifying}
+}
+\author{
+Brad Hubley
 }
 

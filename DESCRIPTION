@@ -2,9 +2,16 @@ Package: SpatialHub
 Title: Survey Design and Spatial Analysis of Fisheries Data
 Version: 0.0.0.9000
 Authors@R: person("Brad", "Hubley", email = "brad.hubley@dfo-mpo.gc.ca", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Various tools for designing surveys of fisheries resources and analysing the data. 
 Depends:
     R (>= 3.3.1)
+Imports: 
+	CircStats,
+	fields,
+	PBSmapping, 
+	RColorBrewer,
+	spatstat,
+	splancs
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
