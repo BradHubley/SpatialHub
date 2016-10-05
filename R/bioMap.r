@@ -22,43 +22,75 @@
 #' @examples
 #' bioMap(area='34')
 #' @export
-bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',bathy.source='topex',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),topolines=NULL,topocol=rgb(0.8,0.5,0,0.2),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addSummerStrata=F,addsubareas=F,subsetSummerStrata=NULL,...){
+bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',bathy.source='topex',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),topolines=NULL,topocol=rgb(0.8,0.5,0,0.2),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addSummerStrata=F,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
 
 options(stringsAsFactors=F)		
 	require(PBSmapping)|| stop("Install PBSmapping Package")
 	require(fields)|| stop("Install fields Package")
+
 	
 	# Custom area
 	if(area=='custom')	{ ylim=ylim; 			xlim=xlim			}
 	
-	## Area List
-	if(area=='all')		{ ylim=c(42.5,48); 		xlim=c(-67.4,-57.8)	}
-	if(area=='west')	{ ylim=c(42.5,46); 		xlim=c(-67.8,-64)	}
-	if(area=='27')		{ ylim=c(44.9,47.9); 	xlim=c(-61,-57.8)	}
-	if(area=='28')		{ ylim=c(45.3,46);	 	xlim=c(-61.6,-60.3)	}
-	if(area=='29')		{ ylim=c(45.3,46); 		xlim=c(-61.6,-60.3)	}
-	if(area=='30')		{ ylim=c(44.6,45.9); 	xlim=c(-60.8,-59.6)	}
-	if(area=='31a')		{ ylim=c(44.4,45.7); 	xlim=c(-61.8,-60)	}
-	if(area=='31b')		{ ylim=c(44.1,45.3); 	xlim=c(-62.2,-60.5)	}
-	if(area=='32')		{ ylim=c(43.8,45);	 	xlim=c(-63.5,-61.5)	}
-	if(area=='33')		{ ylim=c(42.5,44.8); 	xlim=c(-65.8,-62.2)	}
-	if(area=='34')		{ ylim=c(42.5,45);	 	xlim=c(-67.8,-65)	}
-	if(area=='35')		{ ylim=c(44.5,46);	 	xlim=c(-66,-63.2)	}
-	if(area=='36')		{ ylim=c(44.5,45.7); 	xlim=c(-67.2,-65)	}
-	if(area=='37')		{ ylim=c(44,45);		xlim=c(-67.3,-66.4) }
-	if(area=='38')		{ ylim=c(44,45);		xlim=c(-67.3,-66.4) }
-	if(area=='40')		{ ylim=c(42.25,43);		xlim=c(-66.5,-65.25)}
-	if(area=='41')		{ ylim=c(41.1,44); 		xlim=c(-68,-63.5)	}
-	
+	## Area List: preset map extents
+	if(area=='lfas')		{ ylim=c(42.5,48); 		xlim=c(-67.4,-57.8)	}
+	if(area=='west')		{ ylim=c(42.5,46); 		xlim=c(-67.8,-64)	}
+	if(area=='SS')			{ ylim=c(41,47); 		xlim=c(-68,-57)		}
+	if(area=='ESS')			{ ylim=c(43,45.4); 		xlim=c(-62.5,-57.4)	}
+	if(area=='WSS')			{ ylim=c(41,44); 		xlim=c(-67.3,-64)	}
+	if(area=='BBn')			{ ylim=c(42.4,43); 		xlim=c(-66.6,-65.6)	}
+	if(area=='BBs')			{ ylim=c(42.25,42.75); 	xlim=c(-66,-65.25)	}
+	if(area=='BB')			{ ylim=c(42.25,43);		xlim=c(-66.5,-65.25)}
+	if(area=='GB')			{ ylim=c(41.1,42.3); 	xlim=c(-67.3,-65.6)	}
+	if(area=='GBb')			{ ylim=c(41.6,42.3); 	xlim=c(-66.7,-65.6)	}
+	if(area=='Ger')			{ ylim=c(42.8,43.8); 	xlim=c(-67,-65)		}
+	if(area=='Sab')			{ ylim=c(42.8,44.5); 	xlim=c(-62.5,-58.8)	}
+	if(area=='West')		{ ylim=c(43,44.1); 		xlim=c(-62.2,-60.4)	}
+	if(area=='Mid')			{ ylim=c(44.2,44.9);	xlim=c(-61.3,-60.1) }
+	if(area=='Ban')			{ ylim=c(43.7,45.2); 	xlim=c(-60.5,-57)	}
+	if(area=='SPB')			{ ylim=c(44.5,47.5);	xlim=c(-58,-55)		}
+	if(area=='Grand')		{ ylim=c(43,46.5); 		xlim=c(-51.5,-48.5)	}
+	if(area=='Grand2')		{ ylim=c(42.5,48); 		xlim=c(-55,-47)		}
+	if(area=='lfa27')		{ ylim=c(44.9,47.9); 	xlim=c(-61,-57.8)	}
+	if(area=='lfa28')		{ ylim=c(45.3,46);	 	xlim=c(-61.6,-60.3)	}
+	if(area=='lfa29')		{ ylim=c(45.3,46); 		xlim=c(-61.6,-60.3)	}
+	if(area=='lfa30')		{ ylim=c(44.6,45.9); 	xlim=c(-60.8,-59.6)	}
+	if(area=='lfa31a')		{ ylim=c(44.4,45.7); 	xlim=c(-61.8,-60)	}
+	if(area=='lfa31b')		{ ylim=c(44.1,45.3); 	xlim=c(-62.2,-60.5)	}
+	if(area=='lfa32')		{ ylim=c(43.8,45);	 	xlim=c(-63.5,-61.5)	}
+	if(area=='lfa33')		{ ylim=c(42.5,44.8); 	xlim=c(-65.8,-62.2)	}
+	if(area=='lfa34')		{ ylim=c(42.5,45);	 	xlim=c(-67.8,-65)	}
+	if(area=='lfa35')		{ ylim=c(44.5,46);	 	xlim=c(-66,-63.2)	}
+	if(area=='lfa36')		{ ylim=c(44.5,45.7); 	xlim=c(-67.2,-65)	}
+	if(area=='lfa37')		{ ylim=c(44,45);		xlim=c(-67.3,-66.4) }
+	if(area=='lfa38')		{ ylim=c(44,45);		xlim=c(-67.3,-66.4) }
+	if(area=='lfa40')		{ ylim=c(42.25,43);		xlim=c(-66.5,-65.25)}
+	if(area=='lfa41')		{ ylim=c(41.1,44); 		xlim=c(-68,-63.5)	}
+	if(area=='NENS') 		{ xlim=c(-61,-58.2); 	ylim=c(45.9,47.5) 	}
+	if(area=='SENS') 		{ xlim=c(-63.5,-57); 	ylim=c(42.5,46.1)   }
+	if(area=='4X')   		{ xlim=c(-67,-63.1); 	ylim=c(42.5,45)     }
+	if(area=='23')   		{ xlim=c(-60.5,-57); 	ylim=c(43,46.2)   	}
+	if(area=='24')   		{ xlim=c(-63.5,-59); 	ylim=c(42.5,45.5)   }
+	if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
+		
 
-	coast<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","gshhs",paste0("shoreline",mapRes,".csv")))
-	rivers<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","gshhs",paste0("rivers",mapRes,".csv")))
+	coast<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Basemaps","Marine","Coastline",paste0("shoreline",mapRes,".csv")))
+	rivers<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Basemaps","Terrestrial",paste0("rivers",mapRes,".csv")))
 	attr(coast,"projection")<-"LL"
 
 
 	#par(...)
 	plotMap(coast,xlim=xlim,ylim=ylim,border=NA,...)
 	#addLines(rivers)
+	if(basemap){
+		  basemap= importShapefile(bio.polygons::find.bio.gis("map_base_region"))
+		  dm200= importShapefile(bio.polygons::find.bio.gis("dm200_region"))
+		  dm100= importShapefile(bio.polygons::find.bio.gis("dm100_region"))
+		  addPolys(basemap, col="royalblue2", border="royalblue2")
+		  addPolys(dm200, col="steelblue2", border="steelblue2")
+		  addPolys(dm100, col="lightblue1", border="lightblue1")
+
+	}
 	
 	if(lol)addPolys(coast,border=bathcol,lwd=6)
 	
@@ -87,7 +119,7 @@ options(stringsAsFactors=F)
 		if(!is.null(isobaths)){
 			bath.lst<-list()
 			for(i in unique(ceiling(isobaths/1000))){
-	 			load(file.path( project.datadirectory("lobster"), "data","maps", bathy.source, paste0("bathy",sn,"Poly",i,".rdata")))
+	 			load(file.path(project.datadirectory("bio.polygons"), "data","Basemaps","Marine","Bathymetry", bathy.source, paste0("bathy",sn,"Poly",i,".rdata")))
 	 			bath.lst[[i]]<-bathy.poly
 	 		}
  			bathy.poly<-do.call(rbind,bath.lst)
@@ -101,7 +133,7 @@ options(stringsAsFactors=F)
 	# NAFO
 	if(!is.null(nafo)){
 		
-        nafo.xy<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","nafo.csv"))
+        nafo.xy<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Management_Areas","Fisheries","NAFO","nafo.csv"))
         if(nafo[1]=='all')nafo<-unique(nafo.xy$label)
         nafo.sel<-subset(nafo.xy,label%in%nafo)
         nafo.dat<-merge(calcCentroid(nafo.sel),nafo.sel[c("PID","label")])[!duplicated(nafo.sel[c("PID","label")]),]
@@ -132,10 +164,10 @@ options(stringsAsFactors=F)
 	
 	if(boundaries=='LFAs'){
 		
-		LFAs<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","LFAPolys.csv"))
-		LFAgrid<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","GridPolys.csv"))
-		LFA41<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","LFA41Offareas.csv"))
-		subareas<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","LFA2733subareas.csv"))
+		LFAs<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","LFAPolys.csv"))
+		LFAgrid<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","GridPolys.csv"))
+		LFA41<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","LFA41Offareas.csv"))
+		subareas<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","LFA2733subareas.csv"))
 
 		if(area=='31a')area<-311
 		if(area=='31b')area<-312
@@ -176,13 +208,23 @@ options(stringsAsFactors=F)
 	}
 
 	if(boundaries=='scallop'){
-		SFA<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","SFA.csv"))
+		SFA<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","SFA.csv"))
 		addLines(SFA)
-		SPA<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","SPA.csv"))
+		SPA<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","SPA.csv"))
 		addPolys(SPA,col=NULL)
 	}
-		
-	EEZ<-read.csv(file.path( project.datadirectory("lobster"), "data","maps","EEZ.csv"))
+	if(boundaries=='snowcrab'){
+	
+  	zones= importShapefile(bio.polygons::find.bio.gis("sczones2010_polyline"))
+    text("CFA 23", x=-58.05, y=44.55, font=2, cex=1.0)
+    text("CFA 24", x=-60.9, y=43.75, font=2, cex=1.0)
+    text("CFA 4X", x=-64.2, y=43.25, font=2, cex=1.0)
+    text("N-ENS", x= -59.15, y=46.65, font=2, cex=1.0)
+          addLines(zones, col="darkgoldenrod1", lwd=2)
+      }
+
+
+	EEZ<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Management_Areas", "Administrative_Boundaries","EEZ.csv"))
 	addLines(EEZ,lty=4,lwd=2)
 	
 	# plots land
@@ -198,7 +240,7 @@ options(stringsAsFactors=F)
 		if(!is.null(topolines)){
 			topo.lst<-list()
 			for(i in unique(ceiling(topolines/1000))){
-	 			load(file.path( project.datadirectory("lobster"), "data", "maps","topex",paste0("topoPoly",i,".rdata")))
+	 			load(file.path( project.datadirectory("bio.lobster"), "data", "maps","topex",paste0("topoPoly",i,".rdata")))
 	 			topo.lst[[i]]<-topo.poly
 	 		}
  			topo.poly<-do.call(rbind,topo.lst)
@@ -226,9 +268,11 @@ options(stringsAsFactors=F)
 		gridlines<-makeGrid(x,y,byrow=TRUE,addSID=TRUE,projection="LL",zone=NULL)
 		addLines(gridlines,col='grey80',lwd=1)
 	}
-	if('lfa'%in%labels) addLabels(subset(LFAgrid.dat,!duplicated(label)),col=rgb(0,0,0,0.5),cex=labcex,font=2)
-	if('grid'%in%labels) addLabels(subset(grids.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.5),cex=labcex)
-	if('subarea'%in%labels) addLabels(subset(grids.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.5),cex=labcex)
+	if(boundaries=='LFAs'){
+		if('lfa'%in%labels) addLabels(subset(LFAgrid.dat,!duplicated(label)),col=rgb(0,0,0,0.5),cex=labcex,font=2)
+		if('grid'%in%labels) addLabels(subset(grids.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.5),cex=labcex)
+		if('subarea'%in%labels) addLabels(subset(grids.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.5),cex=labcex)
+	}
 	if(is.list(labels)) addLabels(labels[[1]],polyProps=labels[[2]])
 
 
