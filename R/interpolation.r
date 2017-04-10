@@ -80,7 +80,7 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 	# INTERPOLATION	
 	
 	if(!missing(ticks))if(ticks[1]=='define'){
-		ticks<-unique(define.strata(contour.dat$Z,nstrata,str.min,str.max,place))
+		ticks<-unique(defineStrata(contour.dat$Z,nstrata,str.min,str.max,place))
 		nstrata<-length(ticks)-1
 	}
 	if(missing(nstrata)){
