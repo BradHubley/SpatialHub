@@ -132,9 +132,8 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 	print("contour end")
 	print(Sys.time())
 
-	areas<-areacal(image.dat,units='km2',strata.def=ticks)
 	
-	output<-list(contour.dat=contour.dat,image.dat=image.dat,image.var=image.var,image.mod=image.mod,str.def=ticks,areas=areas)
+	output<-list(contour.dat=contour.dat,image.dat=image.dat,image.var=image.var,image.mod=image.mod,str.def=ticks)
 	
 	
 	return(output)
