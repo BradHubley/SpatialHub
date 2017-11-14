@@ -12,7 +12,8 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
   poly.lst = NULL, contours = NULL, image.lst = NULL,
   color.fun = tim.colors, zlim, grid = NULL, stippling = F, lol = F,
   labels = "lfa", labcex = 1.5, LT = T, plot.rivers = T,
-  addSummerStrata = F, addsubareas = F, subsetSummerStrata = NULL, ...)
+  addSummerStrata = F, addsubareas = F, subsetSummerStrata = NULL,
+  basemap = F, ...)
 }
 \arguments{
 \item{area}{= 'custom' where xlim & ylim are specified or select from area list below}
@@ -60,4 +61,3 @@ bioMap(area='34')
 \author{
 Brad Hubley
 }
-

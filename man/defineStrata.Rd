@@ -23,4 +23,3 @@ defines strata boundaries using the sqrt(f(y)) rule (Cochran 1977)
 \author{
 Brad Hubley
 }
-

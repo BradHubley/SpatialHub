@@ -34,4 +34,3 @@ imagePrep(X, Y, Z, dat, aspr = 1.34564, res = 0.02, summary.dat = F,
 \author{
 Brad Hubley
 }
-

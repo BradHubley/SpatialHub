@@ -27,4 +27,3 @@ designAnal(restrat.dat, restrat.areas, original.strata = NULL,
 \author{
 Brad Hubley
 }
-

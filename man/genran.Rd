@@ -19,4 +19,3 @@ genran(npoints, bounding.poly, projection = "LL", mindist = NULL)
 \author{
 Brad Hubley
 }
-

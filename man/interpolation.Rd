@@ -61,4 +61,3 @@ preforms a spatial interpolation either inverse distance weighted or kriging.
 \author{
 Brad Hubley
 }
-

@@ -32,4 +32,3 @@ This function summarizes data onto a grid, creates PBSmapping polySet and polyDa
 \author{
 Brad Hubley
 }
-

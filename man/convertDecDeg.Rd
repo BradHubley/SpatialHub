@@ -23,4 +23,3 @@ convertDecDeg(47.505, 'deg.min')
 \author{
 Brad Hubley
 }
-

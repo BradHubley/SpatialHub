@@ -11,4 +11,3 @@ smoothing(dat, fun = mean, res = 0.01, aspr = 1.34564, no.data = "0",
 \author{
 Brad Hubley
 }
-

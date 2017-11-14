@@ -35,4 +35,3 @@ ALLOCATION by STRATIFIED RANDOM DESIGN based on bottom type (or another polygon 
 \author{
 Brad Hubley
 }
-
