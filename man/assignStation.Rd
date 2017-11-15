@@ -23,7 +23,7 @@ assignStation(events, maxdist = 0.01, res = 0.005, expwin = 0.05,
 \item{...}{additional arguments passed to bioMap}
 }
 \description{
-Assigns station number to tows based on proximity. Currently
+Assigns station number to tows based on proximity.
 }
 \author{
 Brad Hubley

@@ -11,7 +11,7 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
   poly.lst = NULL, contours = NULL, image.lst = NULL,
   color.fun = tim.colors, zlim, grid = NULL, stippling = F, lol = F,
   labels = "lfa", labcex = 1.5, LT = T, plot.rivers = T,
-  addsubareas = F, subsetSummerStrata = NULL, basemap = F, ...)
+  addsubareas = F, subsetSurveyStrata = NULL, basemap = F, ...)
 }
 \arguments{
 \item{area}{= 'custom' where xlim & ylim are specified or select from area list below}
@@ -20,7 +20,7 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
 
 \item{title}{= plot title}
 
-\item{boundaries}{= for ploting specific management boundaries ("lobster","scallop","snowcrab","surveyStrata")}
+\item{boundaries}{= for ploting specific management boundaries ("lobster", "scallop", "snowcrab", "SummerSurveyStrata", "GeorgesSurveyStrata", "AmericanSurveyStrata")}
 
 \item{bathcol}{= isobath line color, default is transparent blue}
 
@@ -50,7 +50,7 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
 a customizable mapping function that uses PBSmapping to plot fisheries data, bathymetry and mangement boundaries.
 }
 \examples{
-bioMap(area='34')
+bioMap(area='lfa34')
 }
 \author{
 Brad Hubley
