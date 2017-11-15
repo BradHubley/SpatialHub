@@ -7,11 +7,8 @@
 #'
 #' @format objects 
 #'
-#' @keywords datasets
 #'
-#' @references 
-#'
-#' @source 
+#' @source PED
 #'
 #' @examples
 #' data(mapdata2)
