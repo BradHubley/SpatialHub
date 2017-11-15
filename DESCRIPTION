@@ -8,11 +8,13 @@ Depends:
 Imports: 
 	CircStats,
 	fields,
+	gstat,
 	PBSmapping, 
 	RColorBrewer,
 	spatstat,
 	splancs,
-	lattice
+	lattice,
+	rgdal
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

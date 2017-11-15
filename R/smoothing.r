@@ -1,5 +1,4 @@
 #' @title smoothing
-
 #' description applies a function on spatial data over a grid
 #' @author Brad Hubley 
 #' @export

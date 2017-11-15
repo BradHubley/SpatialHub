@@ -1,7 +1,7 @@
- #' @export 
+#' @title lookup.projection.params
+#' @examples see: http://www.progonos.com/furuti/MapProj/Normal/TOC/cartTOC.html
+#' @export 
 lookup.projection.params = function(x) {
-    # for examples, see: 
-    # http://www.progonos.com/furuti/MapProj/Normal/TOC/cartTOC.html
     out  = switch( x,
       utm19		= "+proj=utm +ellps=WGS84 +zone=19 +units=km ",
       utm20             = "+proj=utm +ellps=WGS84 +zone=20 +units=km ", 

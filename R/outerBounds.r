@@ -1,9 +1,9 @@
-#' @export
+#' @title outerBounds
+#' @description for creating a tight polygon around a dense set of points
+#' @author Brad Hubley 
 #' @export
 
 outerBounds = function(pointData, round.digit= 3){
-
-#// for creating a tight polygon around a dense set of points
 
 	require(PBSmapping)
 

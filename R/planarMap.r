@@ -1,13 +1,22 @@
-#' @export 
+#' @title planarMap
+#' @description a  mapping function that uses levelplot to plot data in planar coordinates 
+#' @param xyz data to be plotted 
+#' @param corners 2x2 dataframe that specify the corners of the map i.e. corners = data.frame(lon=c(-67.54,-56.5),lat=c(41,47.2)) 
+#' @param projection to be used, see: lookup.projection.params
+#' @param datascale for legend that describes the z variable
+#' @param interpolation logical, does thin plate spline interpolation of the z variable and plots the result
+#' @param add.zeros uses zeroInflate() to add zeros where there is no data before the interpolation (assumes zero outside the sampled area)
+#' @param theta interpolation parameter
+#' @param pts data points to be overlayed on the map
+#' @param save logical TRUE saves the map as a .png, FALSE prints to screen 
+#' @author Brad Hubley (mostly copied from Jae Choi's bio.spacetime::map)
+#' @examples
+#' planarMap(xyz,depths=F)
+#' @export
 
-  planarMap = function( xyz, depths=T, pts=NULL, colpts=F, annot=NULL, annot.cex=2.2, scalebar = T, projection = "utm20", col.regions=T, datascale=seq(0,1,l=50), at=datascale,
-                fn=paste("map", trunc(runif(1)*1e8), sep=""), loc=tempdir(), corners=NULL, rez=c(1,1), save=F, pt.cex=0.5, 
-                pt.pch=16, pt.col='black',colorkey=NULL, fill=T, log.variable=F, interpolation=F, add.zeros=F, theta=50, rev=F, load.data=F, ... ) {
+  planarMap = function( xyz, depths=T, pts=NULL, colpts=F, annot=NULL, annot.cex=2.2, scalebar = T, projection = "utm20", col.regions=T, datascale=seq(0,1,l=50), at=datascale, fn=paste("map", trunc(runif(1)*1e8), sep=""), loc=tempdir(), corners=NULL, rez=c(1,1), save=F, pt.cex=0.5, pt.pch=16, pt.col='black',colorkey=NULL, fill=T, log.variable=F, interpolation=F, add.zeros=F, theta=50, rev=F, ... ) {
 
     # map using levelplot 
-
-    #require( fields )
-    #require( lattice )
     
     # spatial coordinates
     xlim =ylim = NULL

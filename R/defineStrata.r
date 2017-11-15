@@ -5,7 +5,6 @@
 #' @param min.str = minimum value of stratifing variable considered
 #' @param max.str = maximum value of stratifing variable considered
 #' @param place = decimal places used to define strata boundaries
-
 #' @author Brad Hubley 
 #' @export
 

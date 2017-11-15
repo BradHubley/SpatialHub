@@ -42,16 +42,9 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 	
 	if(interp.method=='krige')blank=F
 	
-	# required inputs
-	require (PBSmapping)
-	require (gstat)
-	require (fields)
-	require (splancs)
-	
-	
+
 	# Aspect ratio
 	if(missing(aspr)){
-		require(CircStats)
 		aspr=1/cos(rad(mean(contour.dat$Y)))
 		print(paste('Aspect ratio',aspr))
 	}

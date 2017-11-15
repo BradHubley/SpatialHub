@@ -7,7 +7,6 @@
 #' @param years = to analyse
 #' @param plot = logical, to produce plot
 #' @param domain = logical, to use a domain estimator when restratifying
-
 #' @author Brad Hubley 
 #' @export
 
@@ -17,7 +16,7 @@ designAnal<-function(restrat.dat,restrat.areas,original.strata=NULL,original.are
 	print(Sys.time())
 	
 	
-	require(PEDstrata)|| stop("Find and Install PEDstrata Package")
+	require(PEDstrata)|| stop("Find and Install PEDstrata Package (good luck:)")
 	names(restrat.dat)<-c('year','tow','STRATA.ID','resp')
 	restrat.dat$orig.strata<-original.strata
 	

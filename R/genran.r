@@ -9,11 +9,6 @@
 
 genran<-function(npoints,bounding.poly,projection="LL",mindist=NULL){
 
-	require(spatstat)|| stop("Install spatstat Package")
-	require(splancs)|| stop("Install splancs Package")
-	require(PBSmapping)|| stop("Install PBSmapping Package")
-	
-
 	# create pool of random points
 	bound.pts<-as.points(list(x=bounding.poly$X,y=bounding.poly$Y))
 	

@@ -1,5 +1,5 @@
 #' @title assignStation
-#' @description Assigns station number to tows based on proximity. Currently
+#' @description Assigns station number to tows based on proximity. 
 #' @param events = PBSmapping::EventData of tows
 #' @param maxdist = maximum distance between points considered to be the same statiom
 #' @param res = resolution of the spatstat::distmap
@@ -10,9 +10,6 @@
 #' @author Brad Hubley 
 #' @export
 assignStation <- function(events,maxdist=0.01,res=0.005,expwin=0.05,map=NULL,lines=F,...){
-
-	require(spatstat)
-	require(PBSmapping)
 
 	if(lines==T){
 		events$X<-with(events,apply(cbind(X1,X2),1,mean))

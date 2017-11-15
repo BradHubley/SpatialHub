@@ -11,8 +11,6 @@
 
 blanking<-function(surv.dat,blank.dist,aspr, type=1, eff=0,scale=0.5,type.scaler=0.5){
 	
-	require(spatstat)
-#    browser()
     surv.pts<-subset(surv.dat,select=c('X','Y'))
     xmin<-min(surv.pts$X)
     xmax<-max(surv.pts$X)

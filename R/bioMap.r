@@ -3,7 +3,7 @@
 #' @param area = 'custom' where xlim & ylim are specified or select from area list below
 #' @param mapRes = coastline detail ('LR' = low resolution, 'MR' = medium resolution, 'HR' = high resolution, 'UR' = ultra resolution)
 #' @param title = plot title
-#' @param boundaries = for ploting specific management boundaries ("lobster","scallop","snowcrab","surveyStrata")
+#' @param boundaries = for ploting specific management boundaries ("lobster", "scallop", "snowcrab", "SummerSurveyStrata", "GeorgesSurveyStrata", "AmericanSurveyStrata")
 #' @param isobath = plots bathymetry lines for specified depths from topex data 
 #' @param bathcol = isobath line color, default is transparent blue
 #' @param points.lst = points to overlay on map in PBSmapping format - list with 2 elements: 1st element is eventSet (EID, POS, X, Y), 2nd element is eventData (EID, pch, col, etc.) 
@@ -18,12 +18,9 @@
 #' @param lol = adds water colored border to coastline (purely for visual effect)
 #' @author Brad Hubley
 #' @examples
-#' bioMap(area='34')
+#' bioMap(area='lfa34')
 #' @export
-bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
-
-	#require(PBSmapping)|| stop("Install PBSmapping Package")
-	#require(fields)|| stop("Install fields Package")
+bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addsubareas=F,subsetSurveyStrata=NULL,basemap=F,...){
 
 	
 	# Custom area
@@ -76,7 +73,6 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	attr(coast,"projection")<-"LL"
 
 
-	#par(...)
 	plotMap(coast,xlim=xlim,ylim=ylim,border=NA,...)
 	#addLines(rivers)
 	if(basemap){
@@ -132,17 +128,26 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 		addLabels(nafo.dat,col=rgb(0.5,0.5,0.5,0.5),cex=2)
 	}
 	
-	
-	#groundfish survey summer strata	
-	if('surveyStrata' %in% boundaries) {
-
-		if(!is.null(subsetSummerStrata))  SummerStrata = subset(SummerStrata,PID %in% subsetSummerStrata)
-		addPolys(SummerStrata,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
-	}
-
-
   # Boundries
 	
+	#groundfish survey strata	
+	if('SummerSurveyStrata' %in% boundaries) {
+
+		if(!is.null(subsetSurveyStrata))  SummerStrata = subset(SummerStrata,PID %in% subsetSurveyStrata)
+		addPolys(SummerStrata,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
+	}
+	if('GeorgesSurveyStrata' %in% boundaries) {
+
+		if(!is.null(subsetSurveyStrata))  GeorgesStrata = subset(GeorgesStrata,PID %in% subsetSurveyStrata)
+		addPolys(GeorgesStrata,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
+	}
+	if('AmericanSurveyStrata' %in% boundaries) {
+
+		if(!is.null(subsetSurveyStrata))  AmericanStrata = subset(AmericanStrata,PID %in% subsetSurveyStrata)
+		addPolys(AmericanStrata,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
+	}
+
+	# LFAs
 	if('lobster' %in% boundaries){
 		
 		if(area=='31a')area<-311
@@ -189,6 +194,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 		addLines(SFA)
 		addPolys(SPA,col=NULL)
 	}
+	
 	if('snowcrab' %in% boundaries){
 	
 	    text("CFA 23", x=-58.05, y=44.55, font=2, cex=1.0)

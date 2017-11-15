@@ -1,4 +1,3 @@
-
 #' @title allocPoly
 #' @description ALLOCATION by STRATIFIED RANDOM DESIGN based on bottom type (or another polygon based non-continuous stratifying variable)
 #' @param poly.lst = list containing PBSmapping::PolySet and PBSmapping::PolyData that describe strata polygons, PolyData may contain allocation to specifiy the number of station to be selected for each strata and repeats to indicate how many stations should be selected from repeated.tows
@@ -17,7 +16,6 @@
 	
 allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.tows=NULL, map=NULL,lplace='bottomleft',show.pool=F,UTMzone){
 		
-	require(PBSmapping)
 	options(warn=-1)
 	# create pool of random points
 	if(missing(ntows))ntows<-sum(poly.lst[[2]]$allocation)
@@ -33,7 +31,6 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 	}
 	attr(bounding.poly,"projection")<-"LL"
 	if(!missing(UTMzone))attr(bounding.poly,"zone")<-UTMzone
-#	browser()
 
 	# start with a pool of random stations
 	pool.EventData<-genran(npool,bounding.poly,mindist=mindist)

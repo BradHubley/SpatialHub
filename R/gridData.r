@@ -14,9 +14,6 @@
 
 gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.size=1,aspr="calculate",sx,sy,ex,ey) {  
 
-	print("Mike's a dork")
-	require(PBSmapping)
-	require(RColorBrewer)
 	names(Data)[1:4]<-c("EID","X","Y","Z")
 
 	# Domain polygon to select data
@@ -29,7 +26,6 @@ gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.
 
 	# Aspect ratio
 	if(aspr=="calculate"){
-		require(CircStats)
 		aspr=1/cos(rad(mean(c(sy,ey))))
 	}
 

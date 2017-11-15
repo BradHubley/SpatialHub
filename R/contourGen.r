@@ -1,8 +1,7 @@
+#' @title contourGen
+#' @description Generates contour polygons from image data
 #' @export
 contourGen<-function(contour.dat,lvls,Poly,col="YlGn",colorAdj){
-
-	require(RColorBrewer)
-	require(PBSmapping)
 
 	CL <- contourLines(contour.dat,levels=lvls)
 	CP <- convCP(CL)
