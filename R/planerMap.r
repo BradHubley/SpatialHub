@@ -1,6 +1,6 @@
 #' @export 
 
-  planerMap = function( xyz, depths=T, pts=NULL, colpts=F, annot=NULL, annot.cex=2.2, scalebar = T, projection = "utm20", col.regions=T, datascale=seq(0,1,l=50), at=datascale,
+  planerM ap = function( xyz, depths=T, pts=NULL, colpts=F, annot=NULL, annot.cex=2.2, scalebar = T, projection = "utm20", col.regions=T, datascale=seq(0,1,l=50), at=datascale,
                 fn=paste("map", trunc(runif(1)*1e8), sep=""), loc=tempdir(), corners=NULL, rez=c(1,1), save=F, pt.cex=0.5, 
                 pt.pch=16, pt.col='black',colorkey=NULL, fill=T, log.variable=F, interpolation=F, add.zeros=F, theta=50, rev=F, load.data=F, ... ) {
 
@@ -60,8 +60,6 @@
       #browser()
       u = fastTps(x=xyz[,c("plon","plat")] , Y=xyz[,'z'], theta=theta )
       
-      load("data/baseline.rdata") # baseLine
-      # baseLine = bio.bathymetry::bathymetry.db(p=p, DS="baseline")
 
       xyz = data.frame( baseLine, z = predict(u, xnew=baseLine))
     }
@@ -114,16 +112,12 @@
 
         # depth isobaths
         if (!is.null(depths)) {
-          if(load.data)load("data/isobaths.rdata") 
-          #isoBaths = bio.bathymetry::isobath.db( p=p, depths=depths, crs=p$internal.crs )
           sp.lines( isoBaths , col = rgb(0.2,0.2,0.2,0.5), cex=0.6 )
           #for ( i in depths ) sp.lines( isoBaths[as.character(i) ] , col = rgb(0.2,0.2,0.2,0.5), cex=0.6 )
         }
 
         #coastline
-        if(load.data)load("data/coastline.rdata")
-        #coastLine = bio.coastline::coastline.db(p=p, crs=p$internal.crs)
-        sp.polygons( coastLine, col = "black", cex=1 ,fill='grey')
+         sp.polygons( coastLine, col = "black", cex=1 ,fill='grey')
 
         if (scalebar) {
           lx = xlim[2]-xlim[1]

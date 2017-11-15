@@ -5,7 +5,7 @@
 #'
 #' @usage data(mapdata2)
 #'
-#' @format objects 
+#' @format 	objects 
 #'
 #'
 #' @source PED
