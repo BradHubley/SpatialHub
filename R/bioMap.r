@@ -22,7 +22,7 @@
 #' @examples
 #' bioMap(area='34')
 #' @export
-bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',bathy.source='topex',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),topolines=NULL,topocol=rgb(0.8,0.5,0,0.2),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addSummerStrata=F,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
+bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),topolines=NULL,topocol=rgb(0.8,0.5,0,0.2),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addSummerStrata=F,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
 
 options(stringsAsFactors=F)		
 	require(PBSmapping)|| stop("Install PBSmapping Package")
@@ -74,8 +74,8 @@ options(stringsAsFactors=F)
 	if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
 		
 
-	coast<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Basemaps","Marine","Coastline",paste0("shoreline",mapRes,".csv")))
-	rivers<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Basemaps","Terrestrial",paste0("rivers",mapRes,".csv")))
+	coast<-get(paste0("coast",mapRes))
+	rivers<-get(paste0("rivers",mapRes))
 	attr(coast,"projection")<-"LL"
 
 
@@ -83,9 +83,9 @@ options(stringsAsFactors=F)
 	plotMap(coast,xlim=xlim,ylim=ylim,border=NA,...)
 	#addLines(rivers)
 	if(basemap){
-		  basemap= importShapefile(bio.polygons::find.bio.gis("map_base_region"))
-		  dm200= importShapefile(bio.polygons::find.bio.gis("dm200_region"))
-		  dm100= importShapefile(bio.polygons::find.bio.gis("dm100_region"))
+		  #basemap= importShapefile(bio.polygons::find.bio.gis("map_base_region"))
+		  #dm200= importShapefile(bio.polygons::find.bio.gis("dm200_region"))
+		  #dm100= importShapefile(bio.polygons::find.bio.gis("dm100_region"))
 		  addPolys(basemap, col="royalblue2", border="royalblue2")
 		  addPolys(dm200, col="steelblue2", border="steelblue2")
 		  addPolys(dm100, col="lightblue1", border="lightblue1")
@@ -100,10 +100,10 @@ options(stringsAsFactors=F)
 		image(image.lst,add=T,col=color.fun(100),zlim=zlim)
 	}
 
-	# plot polygons
+	# plot polygons 
 	if(!is.null(contours)){
 		contours[[2]]<-subset(contours[[2]],PID%in%contours[[1]]$PID)
-		junk<-data.frame(PID=1,POS=1:4,X=c(162,161,161,162),Y=c(-41,-41,-40,-40))
+		junk<-data.frame(PID=1,POS=1:4,X=c(162,161,161,162),Y=c(-41,-41,-40,-40)) # KLUDGE!
 		for(i in unique(contours[[2]]$PID)){
 			addPolys(joinPolys(subset(contours[[1]],PID==i),junk,operation="DIFF"),polyProps=contours[[2]])
 		}
@@ -114,20 +114,15 @@ options(stringsAsFactors=F)
 	
 	
 	# Bathymetry
-		sn<-ifelse(sum(isobaths/10)==sum(round(isobaths/10)),"",1)
-		#browser()
 		if(!is.null(isobaths)){
 			bath.lst<-list()
 			for(i in unique(ceiling(isobaths/1000))){
-	 			load(file.path(project.datadirectory("bio.polygons"), "data","Basemaps","Marine","Bathymetry", bathy.source, paste0("bathy",sn,"Poly",i,".rdata")))
-	 			bath.lst[[i]]<-bathy.poly
+	 			bath.lst[[i]]<-get(paste0("bathy.poly",i))
 	 		}
  			bathy.poly<-do.call(rbind,bath.lst)
- 		#browser()
 			bathy.poly<-subset(bathy.poly,Z%in%isobaths)
 			attr(bathy.poly,"projection") <- "LL"
 			addLines(bathy.poly,polyProps=data.frame(PID=unique(bathy.poly$PID),col=bathcol))
-			#browser()
 		}
 	
 	# NAFO
@@ -144,31 +139,18 @@ options(stringsAsFactors=F)
 	}
 	
 	
-#groundfish survey summer strata	
+	#groundfish survey summer strata	
 	if(addSummerStrata) {
-			  loadfunctions('polygons')
-			  a = find.ecomod.gis('summer_strata_labels',return.one.match=F)
-			  a = read.csv(a,header=T)
-			  names(a)[4] <- 'label'
-			  b = find.ecomod.gis('strat.gf',return.one.match=F)
-			  b = read.table(b)
-			  names(b) <- c('X','Y','PID')
-		if(!is.null(subsetSummerStrata)) {
-			  b = b[which(b$PID %in% c(subsetSummerStrata)),]
-				}
-			  b = within(b,{POS <- ave(PID,list(PID),FUN=seq_along)})
-			  addPolys(b,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
-			 # addLabels(a,cex=0.6)
-			}
+
+		if(!is.null(subsetSummerStrata))  SummerStrata = subset(SummerStrata,PID %in% subsetSummerStrata)
+		addPolys(SummerStrata,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
+	}
+
+
   # Boundries
 	
 	if(boundaries=='LFAs'){
 		
-		LFAs<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","LFAPolys.csv"))
-		LFAgrid<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","GridPolys.csv"))
-		LFA41<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","LFA41Offareas.csv"))
-		subareas<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","LFA2733subareas.csv"))
-
 		if(area=='31a')area<-311
 		if(area=='31b')area<-312
 		if(addsubareas)addPolys(subset(subareas,SID==1),lty=3)
@@ -202,29 +184,27 @@ options(stringsAsFactors=F)
     		il = which(LFAgrid.dat$label==35)
 			LFAgrid.dat$Y[il] = 45.23
     		
-			#addLabels(subset(LFAgrid.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.8),cex=1.5)
+   			LFAgrid.dat = as.data.frame(rbind(LFAgrid.dat,c(41,-66,41.9,41)))	#add in lfa41 label		
+			#addLabels(subset(LFAgrid.dat,!duplicated(label)),col=rgb(0,0,0,0.8),cex=labcex)
 		}
 
 	}
 
 	if(boundaries=='scallop'){
-		SFA<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","SFA.csv"))
+
 		addLines(SFA)
-		SPA<-read.csv(file.path( project.datadirectory("bio.lobster"), "data","maps","SPA.csv"))
 		addPolys(SPA,col=NULL)
 	}
 	if(boundaries=='snowcrab'){
 	
-  	zones= importShapefile(bio.polygons::find.bio.gis("sczones2010_polyline"))
-    text("CFA 23", x=-58.05, y=44.55, font=2, cex=1.0)
-    text("CFA 24", x=-60.9, y=43.75, font=2, cex=1.0)
-    text("CFA 4X", x=-64.2, y=43.25, font=2, cex=1.0)
-    text("N-ENS", x= -59.15, y=46.65, font=2, cex=1.0)
-          addLines(zones, col="darkgoldenrod1", lwd=2)
+	    text("CFA 23", x=-58.05, y=44.55, font=2, cex=1.0)
+	    text("CFA 24", x=-60.9, y=43.75, font=2, cex=1.0)
+	    text("CFA 4X", x=-64.2, y=43.25, font=2, cex=1.0)
+	    text("N-ENS", x= -59.15, y=46.65, font=2, cex=1.0)
+        addLines(zones, col="darkgoldenrod1", lwd=2)
       }
 
 
-	EEZ<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Management_Areas", "Administrative_Boundaries","EEZ.csv"))
 	addLines(EEZ,lty=4,lwd=2)
 	
 	# plots land
@@ -234,20 +214,6 @@ options(stringsAsFactors=F)
 	}
 	
 	if(stippling)addStipples (coast, pch='.')
-	
-	# Topography
-	
-		if(!is.null(topolines)){
-			topo.lst<-list()
-			for(i in unique(ceiling(topolines/1000))){
-	 			load(file.path( project.datadirectory("bio.lobster"), "data", "maps","topex",paste0("topoPoly",i,".rdata")))
-	 			topo.lst[[i]]<-topo.poly
-	 		}
- 			topo.poly<-do.call(rbind,topo.lst)
- 			topo.poly<-subset(topo.poly,Z%in%topolines)
-			attr(topo.poly,"projection") <- "LL"
-			addLines(topo.poly,polyProps=data.frame(PID=unique(topo.poly$PID),col=topocol))
-		}
 	
 
 
