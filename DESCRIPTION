@@ -11,7 +11,8 @@ Imports:
 	PBSmapping, 
 	RColorBrewer,
 	spatstat,
-	splancs
+	splancs,
+	lattice
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

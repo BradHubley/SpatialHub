@@ -24,9 +24,8 @@
 #' @export
 bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),topolines=NULL,topocol=rgb(0.8,0.5,0,0.2),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addSummerStrata=F,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
 
-options(stringsAsFactors=F)		
-	require(PBSmapping)|| stop("Install PBSmapping Package")
-	require(fields)|| stop("Install fields Package")
+	#require(PBSmapping)|| stop("Install PBSmapping Package")
+	#require(fields)|| stop("Install fields Package")
 
 	
 	# Custom area

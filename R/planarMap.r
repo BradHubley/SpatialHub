@@ -6,9 +6,8 @@
 
     # map using levelplot 
 
-    require( fields )
-    require( lattice )
-    require( bio.utilities )
+    #require( fields )
+    #require( lattice )
     
     # spatial coordinates
     xlim =ylim = NULL
