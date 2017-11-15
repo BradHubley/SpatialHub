@@ -3,11 +3,9 @@
 #' @param area = 'custom' where xlim & ylim are specified or select from area list below
 #' @param mapRes = coastline detail ('LR' = low resolution, 'MR' = medium resolution, 'HR' = high resolution, 'UR' = ultra resolution)
 #' @param title = plot title
-#' @param boundaries = for ploting specific management boundaries
+#' @param boundaries = for ploting specific management boundaries ("lobster","scallop","snowcrab","surveyStrata")
 #' @param isobath = plots bathymetry lines for specified depths from topex data 
 #' @param bathcol = isobath line color, default is transparent blue
-#' @param topolines = plots topographic lines for specified elevations from topex data 
-#' @param bathcol = topolines line color, default is transparent brown
 #' @param points.lst = points to overlay on map in PBSmapping format - list with 2 elements: 1st element is eventSet (EID, POS, X, Y), 2nd element is eventData (EID, pch, col, etc.) 
 #' @param lines.lst = lines to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, lty, col, etc.) 
 #' @param poly.lst = polygons to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, border, col, etc.) 
@@ -22,7 +20,7 @@
 #' @examples
 #' bioMap(area='34')
 #' @export
-bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),topolines=NULL,topocol=rgb(0.8,0.5,0,0.2),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addSummerStrata=F,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
+bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addsubareas=F,subsetSummerStrata=NULL,basemap=F,...){
 
 	#require(PBSmapping)|| stop("Install PBSmapping Package")
 	#require(fields)|| stop("Install fields Package")
@@ -82,9 +80,6 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	plotMap(coast,xlim=xlim,ylim=ylim,border=NA,...)
 	#addLines(rivers)
 	if(basemap){
-		  #basemap= importShapefile(bio.polygons::find.bio.gis("map_base_region"))
-		  #dm200= importShapefile(bio.polygons::find.bio.gis("dm200_region"))
-		  #dm100= importShapefile(bio.polygons::find.bio.gis("dm100_region"))
 		  addPolys(basemap, col="royalblue2", border="royalblue2")
 		  addPolys(dm200, col="steelblue2", border="steelblue2")
 		  addPolys(dm100, col="lightblue1", border="lightblue1")
@@ -139,7 +134,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	
 	
 	#groundfish survey summer strata	
-	if(addSummerStrata) {
+	if('surveyStrata' %in% boundaries) {
 
 		if(!is.null(subsetSummerStrata))  SummerStrata = subset(SummerStrata,PID %in% subsetSummerStrata)
 		addPolys(SummerStrata,lty=1,border='lightblue',col=adjustcolor('blue',alpha.f=0.15))
@@ -148,7 +143,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 
   # Boundries
 	
-	if(boundaries=='LFAs'){
+	if('lobster' %in% boundaries){
 		
 		if(area=='31a')area<-311
 		if(area=='31b')area<-312
@@ -189,12 +184,12 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 
 	}
 
-	if(boundaries=='scallop'){
+	if('scallop' %in% boundaries){
 
 		addLines(SFA)
 		addPolys(SPA,col=NULL)
 	}
-	if(boundaries=='snowcrab'){
+	if('snowcrab' %in% boundaries){
 	
 	    text("CFA 23", x=-58.05, y=44.55, font=2, cex=1.0)
 	    text("CFA 24", x=-60.9, y=43.75, font=2, cex=1.0)
@@ -233,7 +228,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 		gridlines<-makeGrid(x,y,byrow=TRUE,addSID=TRUE,projection="LL",zone=NULL)
 		addLines(gridlines,col='grey80',lwd=1)
 	}
-	if(boundaries=='LFAs'){
+	if('lobster' %in% boundaries){
 		if('lfa'%in%labels) addLabels(subset(LFAgrid.dat,!duplicated(label)),col=rgb(0,0,0,0.5),cex=labcex,font=2)
 		if('grid'%in%labels) addLabels(subset(grids.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.5),cex=labcex)
 		if('subarea'%in%labels) addLabels(subset(grids.dat,!duplicated(label)),col=rgb(0.5,0.5,0.5,0.5),cex=labcex)
