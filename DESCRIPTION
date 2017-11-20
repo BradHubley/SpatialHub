@@ -9,6 +9,8 @@ Imports:
 	CircStats,
 	fields,
 	gstat,
+	spacetime,
+	FNN,
 	PBSmapping, 
 	RColorBrewer,
 	spatstat,

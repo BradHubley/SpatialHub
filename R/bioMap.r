@@ -67,7 +67,8 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	if(area=='24')   		{ xlim=c(-63.5,-59); 	ylim=c(42.5,45.5)   }
 	if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
 		
-
+	options(stringsAsFactors=F)
+	
 	coast<-get(paste0("coast",mapRes))
 	rivers<-get(paste0("rivers",mapRes))
 	attr(coast,"projection")<-"LL"
