@@ -145,12 +145,12 @@
       png(  filename=fn, width=3072, height=2304, pointsize=40, res=300 )
       print(lp)
       dev.off()
+      print(fn)
     } 
     else{
       print(lp)
     }
 
-    return( fn )
 
   }
 
