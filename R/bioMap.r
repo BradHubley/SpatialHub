@@ -20,7 +20,7 @@
 #' @examples
 #' bioMap(area='lfa34')
 #' @export
-bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addsubareas=F,subsetSurveyStrata=NULL,basemap=F,...){
+bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addsubareas=F,subsetSurveyStrata=NULL,addbasemap=F,...){
 
 	
 	# Custom area
@@ -67,16 +67,17 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	if(area=='24')   		{ xlim=c(-63.5,-59); 	ylim=c(42.5,45.5)   }
 	if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
 		
-	options(stringsAsFactors=F)
-	
+	options(stringsAsFactors=F,warn=-1)
+
 	coast<-get(paste0("coast",mapRes))
 	rivers<-get(paste0("rivers",mapRes))
 	attr(coast,"projection")<-"LL"
+	attr(rivers,"projection")<-"LL"
 
 
 	plotMap(coast,xlim=xlim,ylim=ylim,border=NA,...)
 	#addLines(rivers)
-	if(basemap){
+	if(addbasemap){
 		  addPolys(basemap, col="royalblue2", border="royalblue2")
 		  addPolys(dm200, col="steelblue2", border="steelblue2")
 		  addPolys(dm100, col="lightblue1", border="lightblue1")
@@ -247,6 +248,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	
 
 	title(main=title)
+	options(warn=0)
 	
 
 }
