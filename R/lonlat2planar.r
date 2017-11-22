@@ -9,8 +9,9 @@
     #\\ proj.type can be an internal code such as "utm20" or a proj4 argument
     #\\ output scale is defined in the +units=km (default for bio) or +units=m (default for proj)
 
+    require(rgdal)
     # first try an internal conversion /lookup for CRS  
-    proj4.params = try( CRS( lookup.projection.params(proj.type) ), silent=TRUE )
+    proj4.params = try( rgdal::CRS( lookup.projection.params(proj.type) ), silent=TRUE )
     
     # if internal lookup does not work then try to directly pass to CRS   
     if (is.null(proj.type)) {
@@ -18,11 +19,11 @@
       warning( "Projection not recognised") 
     } 
     if ( "try-error" %in% class( proj4.params) ) {
-      if (!is.null(proj.type)) proj4.params = try( CRS( proj.type ), silent=TRUE )
+      if (!is.null(proj.type)) proj4.params = try( rgdal::CRS( proj.type ), silent=TRUE )
     }
 
     if ( "try-error" %in% class( proj4.params) ) {
-      if (!is.null(proj.type)) proj4.params = try( CRS( as.character(proj.type) ), silent=TRUE )
+      if (!is.null(proj.type)) proj4.params = try( rgdal::CRS( as.character(proj.type) ), silent=TRUE )
     }
     if ( "try-error" %in% class( proj4.params) ) {
       print( proj.type )
