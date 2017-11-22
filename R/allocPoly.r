@@ -74,7 +74,7 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 		towsi[1]<-ntows-sum(towsi[-1])
 		strata<-names(towsi)
 	}
-	#browser()
+	browser()
 	for(i in 1:length(strata)){
 		LocSet<-findPolys(pool.EventData,subset(strataPolys.dat,PName==strata[i]))
 		strataTows.lst[[i]]<-data.frame(subset(pool.EventData,EID%in%LocSet$EID),Poly.ID=Poly.ID[i],STRATA=strata[i])

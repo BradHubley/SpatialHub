@@ -11,7 +11,7 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
   poly.lst = NULL, contours = NULL, image.lst = NULL,
   color.fun = tim.colors, zlim, grid = NULL, stippling = F, lol = F,
   labels = "lfa", labcex = 1.5, LT = T, plot.rivers = T,
-  addsubareas = F, subsetSurveyStrata = NULL, basemap = F, ...)
+  addsubareas = F, subsetSurveyStrata = NULL, addbasemap = F, ...)
 }
 \arguments{
 \item{area}{= 'custom' where xlim & ylim are specified or select from area list below}
