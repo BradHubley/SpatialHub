@@ -16,15 +16,27 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
 \arguments{
 \item{area}{= 'custom' where xlim & ylim are specified or select from area list below}
 
+\item{ylim}{= y limits}
+
+\item{xlim}{= x limits}
+
 \item{mapRes}{= coastline detail ('LR' = low resolution, 'MR' = medium resolution, 'HR' = high resolution, 'UR' = ultra resolution)}
+
+\item{land.col}{= colour for the land}
 
 \item{title}{= plot title}
 
+\item{nafo}{= undocumented}
+
 \item{boundaries}{= for ploting specific management boundaries ("lobster", "scallop", "snowcrab", "SummerSurveyStrata", "GeorgesSurveyStrata", "AmericanSurveyStrata")}
+
+\item{isobaths}{= plots bathymetry lines for specified depths from topex data}
 
 \item{bathcol}{= isobath line color, default is transparent blue}
 
 \item{points.lst}{= points to overlay on map in PBSmapping format - list with 2 elements: 1st element is eventSet (EID, POS, X, Y), 2nd element is eventData (EID, pch, col, etc.)}
+
+\item{pt.cex}{= undocumented}
 
 \item{lines.lst}{= lines to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, lty, col, etc.)}
 
@@ -44,7 +56,21 @@ bioMap(area = "custom", ylim = c(40, 52), xlim = c(-74, -47),
 
 \item{lol}{= adds water colored border to coastline (purely for visual effect)}
 
-\item{isobath}{= plots bathymetry lines for specified depths from topex data}
+\item{labels}{= undocumented}
+
+\item{labcex}{= undocumented}
+
+\item{LT}{= undocumented}
+
+\item{plot.rivers}{= undocumented}
+
+\item{addsubareas}{= undocumented}
+
+\item{subsetSurveyStrata}{= undocumented}
+
+\item{addbasemap}{= undocumented}
+
+\item{...}{= undocumented}
 }
 \description{
 a customizable mapping function that uses PBSmapping to plot fisheries data, bathymetry and mangement boundaries.

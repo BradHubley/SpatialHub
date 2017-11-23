@@ -6,6 +6,17 @@
 \usage{
 contourGen(contour.dat, lvls, Poly, col = "YlGn", colorAdj)
 }
+\arguments{
+\item{contour.dat}{= undocumented}
+
+\item{lvls}{= undocumented}
+
+\item{Poly}{= undocumented}
+
+\item{col}{= undocumented}
+
+\item{colorAdj}{= undocumented}
+}
 \description{
 Generates contour polygons from image data
 }

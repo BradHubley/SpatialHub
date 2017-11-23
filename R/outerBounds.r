@@ -1,11 +1,12 @@
 #' @title outerBounds
 #' @description for creating a tight polygon around a dense set of points
-#' @author Brad Hubley 
+#' @param pointData = undocumented
+#' @param round.digit = undocumented
+#' @importFrom PBSmapping joinPolys
+#' @author Brad Hubley
 #' @export
 
 outerBounds = function(pointData, round.digit= 3){
-
-	require(PBSmapping)
 
 	Ys=sort(unique(round(pointData$Y,round.digit)))
 	Xs=sort(unique(round(pointData$X,round.digit)))

@@ -13,10 +13,13 @@ Imports:
 	FNN,
 	PBSmapping, 
 	RColorBrewer,
+	sp,
 	spatstat,
 	splancs,
 	lattice,
 	rgdal
+Suggests:
+  PEDstrata
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true

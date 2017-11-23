@@ -19,6 +19,8 @@ blanking(surv.dat, blank.dist, aspr, type = 1, eff = 0, scale = 0.5,
 \item{eff}{= what data is inserted, intended for zeros}
 
 \item{scale}{= how far beyond the range of the data are points inserted}
+
+\item{type.scaler}{= undocumented}
 }
 \description{
 incorporates blanking distance by including zeros spaced eqully at the average nearest nieghbour distance, default blanking distance is the nearest neighbour distance of the most isolated point. Called by interpolation.

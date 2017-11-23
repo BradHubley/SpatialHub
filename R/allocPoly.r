@@ -2,27 +2,33 @@
 #' @description ALLOCATION by STRATIFIED RANDOM DESIGN based on bottom type (or another polygon based non-continuous stratifying variable)
 #' @param poly.lst = list containing PBSmapping::PolySet and PBSmapping::PolyData that describe strata polygons, PolyData may contain allocation to specifiy the number of station to be selected for each strata and repeats to indicate how many stations should be selected from repeated.tows
 #' @param bounding.poly = PBSmapping::PolySet describing the area to be surveyed
-#' @param n.tows = total number of stations to be selected
-#' @param mindist = minimum distance (km) or buffer between stations 
-#' @param pool.size = multiplyer to n.tows. This function first generates a pool of random locations, then randomly selects from the pool stations that fulfill the criteria (allocation by strata, buffer distance, etc.)  
+#' @param ntows = total number of stations to be selected
+#' @param mindist = minimum distance (km) or buffer between stations
+#' @param pool.size = multiplyer to n.tows. This function first generates a pool of random locations, then randomly selects from the pool stations that fulfill the criteria (allocation by strata, buffer distance, etc.)
 #' @param repeated.tows = PBSmapping::EventData of previous stations to be selected from if repeats exist in poly.lst[[2]] (PolyData)
 #' @param map = preset location to pass to bioMap
 #' @param lplace = placement of legend if !is.null(map)
 #' @param show.pool = logical, if TRUE the initial pool of random stations is plotted on the map
 #' @param UTMzone = PBSmapping::PolySet attribute, auto-generated if missing
-#' @author Brad Hubley 
+#' @importFrom graphics legend
+#' @importFrom stats na.omit
+#' @importFrom PBSmapping calcArea
+#' @importFrom PBSmapping combinePolys
+#' @importFrom PBSmapping convUL
+#' @importFrom spatstat nndist
+#' @author Brad Hubley
 #' @export
 
-	
+
 allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.tows=NULL, map=NULL,lplace='bottomleft',show.pool=F,UTMzone){
-		
+
 	options(warn=-1)
 	# create pool of random points
 	if(missing(ntows))ntows<-sum(poly.lst[[2]]$allocation)
 	npool=ntows*pool.size
-	  
+
 	if(!missing(bounding.poly))surveyed.polys<-joinPolys(poly.lst[[1]],bounding.poly,operation="INT")
-	
+
 	if(missing(bounding.poly)){
 	surveyed.polys<-poly.lst[[1]]
 	bounding.poly<-poly.lst[[1]][chull(poly.lst[[1]]$X,poly.lst[[1]]$Y),]
@@ -34,12 +40,12 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 
 	# start with a pool of random stations
 	pool.EventData<-genran(npool,bounding.poly,mindist=mindist)
-	
-	
+
+
 	Poly.ID<-unique(poly.lst[[2]]$PID)
 	strata<-as.character(unique(poly.lst[[2]]$PName))
 	strataTows.lst<-list(NULL)
-	
+
 	# allocation provided
 	if("allocation"%in%names(poly.lst[[2]])){
 		towsi<-with(poly.lst[[2]],tapply(allocation,PName,unique))
@@ -53,7 +59,7 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 		strataPolys.lst<-list(NULL)
 		strataArea<-c()
 		towsi<-c()
-	
+
 		for(i in 1:length(strata)){
 			strataPIDS<-poly.lst[[2]]$PID[poly.lst[[2]]$PName==strata[i]]
 			tmp<-subset(surveyed.polys,PID%in%strataPIDS)
@@ -78,18 +84,18 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 	for(i in 1:length(strata)){
 		LocSet<-findPolys(pool.EventData,subset(strataPolys.dat,PName==strata[i]))
 		strataTows.lst[[i]]<-data.frame(subset(pool.EventData,EID%in%LocSet$EID),Poly.ID=Poly.ID[i],STRATA=strata[i])
-	
+
 	}
-	
+
 	Tows<-do.call("rbind",strataTows.lst)
 	Tows$EID<-1:nrow(Tows)
 	rownames(Tows)<-1:nrow(Tows)
 	attr(Tows,"projection")<-"LL"
 	if(!missing(UTMzone))attr(Tows,"zone")<-UTMzone
-	
+
 	# randomly selects stations from last years	survey (repeated.tows)
 	if(!is.null(repeated.tows)){
-			
+
 		names(repeated.tows)<-c("EID","X","Y","Poly.ID")
 		repeated.tows$EID<-repeated.tows$EID+1000
 		repeat.str<-poly.lst[[2]][!is.na(poly.lst[[2]]$repeats),]
@@ -106,22 +112,22 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 		if(!missing(UTMzone))attr(tmp,"zone")<-UTMzone
 		tmp$nndist<-nndist(as.ppp(subset(convUL(tmp),select=c('X','Y')),with(convUL(bounding.poly),owin(range(X),range(Y)))))
 		Tows<-subset(tmp,nndist>mindist&EID<1000)
-		
+
 	}
-	
+
 	Tows.lst<-list(NULL)
 	strata<-as.character(unique(poly.lst[[2]]$PName))
 	#browser()
 	for(i in 1:length(strata)){
 		Tows.lst[[i]]<-subset(Tows,STRATA==strata[i])[1:towsi[strata[i]],]
-	
+
 	}
 	Tows<-do.call("rbind",Tows.lst)
 	Tows$EID<-1:nrow(Tows)
 	rownames(Tows)<-1:nrow(Tows)
 	attr(Tows,"projection")<-"LL"
 	if(!missing(UTMzone))attr(Tows,"zone")<-UTMzone
-			
+
 	if(!is.null(repeated.tows))Tows<-list(new.tows=Tows, repeated.tows=repeated.tows)
 
 	if(!is.null(map)){
@@ -138,8 +144,8 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 		if(is.null(repeated.tows))legend(lplace,legend=names(bg.col[unique(as.character(Tows$STRATA))]),pch=21,pt.bg=bg.col[unique(as.character(Tows$STRATA))],bty='n',cex=1, inset = .02)
 
 	}
-	
+
 	options(warn=0)
 	return(list(Tows=Tows,Areas=strataArea))
-	
+
 }

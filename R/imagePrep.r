@@ -1,16 +1,37 @@
 #' @title imagePrep
-#' description Called by interpolation to preform the interpolation and return image data
-#' @param dat = a dataframe with 3 columns (longitude, latitude, variable to be mapped)
+#' @description Called by interpolation to preform the interpolation and return
+#' image data
+#' @param dat = a dataframe with 3 columns (longitude, latitude, variable to be
+#' mapped)
 #' @param aspr = aspect ratio for a given latitude (default is for 45 deg.)
 #' @param res = resolution of image in decimal degrees
-#' @param method = 'gstat' = gstat (idw) function from gstat library, 'krige' = krige function from gstat library, 'none' = no interpolation function
-#' @param maxdist, nmax, idp, mod.type = arguments to be passed to gstat function (idp is inverse distance power)
+#' @param method = 'gstat' = gstat (idw) function from gstat library, 'krige' =
+#' krige function from gstat library, 'none' = no interpolation function
+#' @param maxdist, nmax, idp, mod.type = arguments to be passed to gstat
+#' function (idp is inverse distance power)
 #' @param log.dat = logical, whether to log data
 #' @param covariate.dat = covariate data typically used in kriging
-#' @param subset.poly = inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)
-#' @param subset.eff = sets values to this outside the subset.poly
+#' @param subset.poly = inclusion polygon to subset spatially, 'square' used to
+#' close polygons (useful when not smoothing or blanking)
 #' @param subscale = size of inset when subset.poly = 'square'
-#' @author Brad Hubley 
+#' @param X = undocumented
+#' @param Y = undocumented
+#' @param Z = undocumented
+#' @param summary.dat = undocumented
+#' @param matrix.dat = undocumented
+#' @param idp = undocumented
+#' @param nmax = undocumented
+#' @param regrid = undocumented
+#' @param mod.type = undocumented
+#' @importFrom grDevices chull
+#' @importFrom stats predict
+#' @importFrom stats median
+#' @importFrom gstat gstat
+#' @importFrom gstat krige
+#' @importFrom gstat variogram
+#' @importFrom gstat vgm
+#' @importFrom PBSmapping makeTopography
+#' @author Brad Hubley
 #' @export
 
 imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,method='gstat',matrix.dat=T,idp=0.5,nmax=7,maxdist=Inf, subset.poly=NULL, covariate.dat=NULL,regrid=F,mod.type="Sph",subscale=0.01){
@@ -40,11 +61,11 @@ imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,met
 	poly <- tow.xy[chull(tow.xy), ]
 	names(poly) <- c("X", "Y")
 	grid.dat <- with(poly, expand.grid(X = Xs, Y = Ys))
-		
+
 	if(!is.null(covariate.dat)){
 		if(regrid==T)grid.dat<-grid.data(covariate.dat,grid.dat)
 		if(regrid==F)grid.dat<-covariate.dat
-	}	
+	}
 
 	# interpolation methods
 	if(method=='gstat'){
@@ -56,7 +77,7 @@ imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,met
 		if(matrix.dat==F)image.data<-data.frame(X=Z.dat[,1],Y=Z.dat[,2],Z=Z.dat[,4])
 		spatial.model<-Z.gstat
 	}
-		
+
 	if(method=='o.krige'){
 		browser()
 		v <- variogram(Z ~ 1, locations = ~ X + Y, data = dat)
@@ -76,13 +97,13 @@ imagePrep<-function(X,Y,Z,dat,aspr=1.345640,res=0.02,summary.dat=F,log.dat=T,met
 		if(matrix.dat==F)image.data<-data.frame(X=Z.krige[,1],Y=Z.krige[,2],Z=Z.krige[,3])
 		spatial.model<-v.fit
 	}
-		
 
-	
+
+
 	if(log.dat)image.data$z<-exp(image.data$z)
 	print("image.prep end")
 	print(Sys.time())
 
 	return(list(image.data,var.data,spatial.model))
-	
+
 }

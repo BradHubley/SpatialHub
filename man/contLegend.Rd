@@ -6,6 +6,13 @@
 \usage{
 contLegend(..., lvls, Cont.data)
 }
+\arguments{
+\item{...}{= undocumented}
+
+\item{lvls}{= undocumented}
+
+\item{Cont.data}{= undocumented}
+}
 \description{
 Creates a legend for contour data
 }

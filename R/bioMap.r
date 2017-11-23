@@ -1,10 +1,23 @@
 #' @title bioMap
 #' @description a customizable mapping function that uses PBSmapping to plot fisheries data, bathymetry and mangement boundaries.
 #' @param area = 'custom' where xlim & ylim are specified or select from area list below
+
+#' @param ylim = y limits
+#' @param xlim = x limits
 #' @param mapRes = coastline detail ('LR' = low resolution, 'MR' = medium resolution, 'HR' = high resolution, 'UR' = ultra resolution)
+#' @param land.col = colour for the land
+#' @param nafo = undocumented
+#' @param pt.cex = undocumented
+#' @param labels = undocumented
+#' @param labcex = undocumented
+#' @param LT = undocumented
+#' @param plot.rivers = undocumented
+#' @param addsubareas = undocumented
+#' @param subsetSurveyStrata = undocumented
+#' @param addbasemap = undocumented
 #' @param title = plot title
 #' @param boundaries = for ploting specific management boundaries ("lobster", "scallop", "snowcrab", "SummerSurveyStrata", "GeorgesSurveyStrata", "AmericanSurveyStrata")
-#' @param isobath = plots bathymetry lines for specified depths from topex data
+#' @param isobaths = plots bathymetry lines for specified depths from topex data
 #' @param bathcol = isobath line color, default is transparent blue
 #' @param points.lst = points to overlay on map in PBSmapping format - list with 2 elements: 1st element is eventSet (EID, POS, X, Y), 2nd element is eventData (EID, pch, col, etc.)
 #' @param lines.lst = lines to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, lty, col, etc.)
@@ -16,10 +29,21 @@
 #' @param grid = size of grid in degrees, default is no grid
 #' @param stippling = adds stippling to land (purely for visual effect)
 #' @param lol = adds water colored border to coastline (purely for visual effect)
+#' @param ... = undocumented
 #' @importFrom PBSmapping plotMap
 #' @importFrom PBSmapping addPoints
 #' @importFrom PBSmapping addLines
 #' @importFrom PBSmapping addPolys
+#' @importFrom PBSmapping addStipples
+#' @importFrom PBSmapping addLabels
+#' @importFrom PBSmapping calcCentroid
+#' @importFrom PBSmapping makeGrid
+#' @importFrom grDevices adjustcolor
+#' @importFrom graphics box
+#' @importFrom graphics image
+#' @importFrom graphics text
+#' @importFrom grDevices rgb
+#' @importFrom utils read.csv
 #' @author Brad Hubley
 #' @examples
 #' bioMap(area='lfa34')

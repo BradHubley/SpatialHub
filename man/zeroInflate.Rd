@@ -14,11 +14,15 @@ zeroInflate(xyz, blank.dist, scale = 20, corners = NULL, aspr = 1,
 
 \item{scale}{= how far beyond the range of the data are points inserted}
 
+\item{corners}{= undocumented}
+
 \item{aspr}{= aspect ratio for for creating square grid}
 
 \item{type}{= how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance}
 
 \item{eff}{= what data is inserted, intended for zeros}
+
+\item{type.scaler}{= undocumented}
 }
 \description{
 incorporates blanking distance by including zeros spaced eqully at the average nearest nieghbour distance, default blanking distance is the nearest neighbour distance of the most isolated point. Called by interpolation.
