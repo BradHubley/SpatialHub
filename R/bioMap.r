@@ -1,31 +1,35 @@
 #' @title bioMap
-#' @description a customizable mapping function that uses PBSmapping to plot fisheries data, bathymetry and mangement boundaries. 
+#' @description a customizable mapping function that uses PBSmapping to plot fisheries data, bathymetry and mangement boundaries.
 #' @param area = 'custom' where xlim & ylim are specified or select from area list below
 #' @param mapRes = coastline detail ('LR' = low resolution, 'MR' = medium resolution, 'HR' = high resolution, 'UR' = ultra resolution)
 #' @param title = plot title
 #' @param boundaries = for ploting specific management boundaries ("lobster", "scallop", "snowcrab", "SummerSurveyStrata", "GeorgesSurveyStrata", "AmericanSurveyStrata")
-#' @param isobath = plots bathymetry lines for specified depths from topex data 
+#' @param isobath = plots bathymetry lines for specified depths from topex data
 #' @param bathcol = isobath line color, default is transparent blue
-#' @param points.lst = points to overlay on map in PBSmapping format - list with 2 elements: 1st element is eventSet (EID, POS, X, Y), 2nd element is eventData (EID, pch, col, etc.) 
-#' @param lines.lst = lines to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, lty, col, etc.) 
-#' @param poly.lst = polygons to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, border, col, etc.) 
+#' @param points.lst = points to overlay on map in PBSmapping format - list with 2 elements: 1st element is eventSet (EID, POS, X, Y), 2nd element is eventData (EID, pch, col, etc.)
+#' @param lines.lst = lines to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, lty, col, etc.)
+#' @param poly.lst = polygons to overlay on map in PBSmapping format - list with 2 elements: 1st element is polySet (PID, SID, POS, X, Y), 2nd element is polyData (PID, SID, border, col, etc.)
 #' @param contours = plots overlaping polygons as contours (same format as poly.lst)
-#' @param image.lst = image to overlay on map - list with 3 elements (x, y, z), 'bathymetry' produces image from bathymetry data 
+#' @param image.lst = image to overlay on map - list with 3 elements (x, y, z), 'bathymetry' produces image from bathymetry data
 #' @param color.fun = color function for image
 #' @param zlim = zlim for image
 #' @param grid = size of grid in degrees, default is no grid
 #' @param stippling = adds stippling to land (purely for visual effect)
 #' @param lol = adds water colored border to coastline (purely for visual effect)
+#' @importFrom PBSmapping plotMap
+#' @importFrom PBSmapping addPoints
+#' @importFrom PBSmapping addLines
+#' @importFrom PBSmapping addPolys
 #' @author Brad Hubley
 #' @examples
 #' bioMap(area='lfa34')
 #' @export
 bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.col='wheat',title='',nafo=NULL,boundaries='LFAs',isobaths=seq(100,1000,100),bathcol=rgb(0,0,1,0.1),points.lst=NULL,pt.cex=1,lines.lst=NULL,poly.lst=NULL,contours=NULL,image.lst=NULL,color.fun=tim.colors,zlim,grid=NULL,stippling=F,lol=F,labels='lfa',labcex=1.5,LT=T,plot.rivers=T,addsubareas=F,subsetSurveyStrata=NULL,addbasemap=F,...){
 
-	
+
 	# Custom area
 	if(area=='custom')	{ ylim=ylim; 			xlim=xlim			}
-	
+
 	## Area List: preset map extents
 	if(area=='lfas')		{ ylim=c(42.5,48); 		xlim=c(-67.4,-57.8)	}
 	if(area=='west')		{ ylim=c(42.5,46); 		xlim=c(-67.8,-64)	}
@@ -66,7 +70,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	if(area=='23')   		{ xlim=c(-60.5,-57); 	ylim=c(43,46.2)   	}
 	if(area=='24')   		{ xlim=c(-63.5,-59); 	ylim=c(42.5,45.5)   }
 	if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
-		
+
 	options(stringsAsFactors=F,warn=-1)
 
 	coast<-get(paste0("coast",mapRes))
@@ -83,16 +87,16 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 		  addPolys(dm100, col="lightblue1", border="lightblue1")
 
 	}
-	
+
 	if(lol)addPolys(coast,border=bathcol,lwd=6)
-	
+
 	# Image
 	if(!is.null(image.lst)){
 		if(missing(zlim))zlim<-range(image.lst$z,na.rm=T)
 		image(image.lst,add=T,col=color.fun(100),zlim=zlim)
 	}
 
-	# plot polygons 
+	# plot polygons
 	if(!is.null(contours)){
 		contours[[2]]<-subset(contours[[2]],PID%in%contours[[1]]$PID)
 		junk<-data.frame(PID=1,POS=1:4,X=c(162,161,161,162),Y=c(-41,-41,-40,-40)) # KLUDGE!
@@ -103,8 +107,8 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	if(!is.null(poly.lst)){
 		addPolys(poly.lst[[1]],polyProps=poly.lst[[2]])
 	}
-	
-	
+
+
 	# Bathymetry
 		if(!is.null(isobaths)){
 			bath.lst<-list()
@@ -116,23 +120,23 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 			attr(bathy.poly,"projection") <- "LL"
 			addLines(bathy.poly,polyProps=data.frame(PID=unique(bathy.poly$PID),col=bathcol))
 		}
-	
+
 	# NAFO
 	if(!is.null(nafo)){
-		
+
         nafo.xy<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Management_Areas","Fisheries","NAFO","nafo.csv"))
         if(nafo[1]=='all')nafo<-unique(nafo.xy$label)
         nafo.sel<-subset(nafo.xy,label%in%nafo)
         nafo.dat<-merge(calcCentroid(nafo.sel),nafo.sel[c("PID","label")])[!duplicated(nafo.sel[c("PID","label")]),]
         nafo.dat$label[nafo.dat$label=="5ZC"]<-"5ZEM"
-        
+
 		addPolys(nafo.xy,border='grey',col=NULL)
 		addLabels(nafo.dat,col=rgb(0.5,0.5,0.5,0.5),cex=2)
 	}
-	
+
   # Boundries
-	
-	#groundfish survey strata	
+
+	#groundfish survey strata
 	if('SummerSurveyStrata' %in% boundaries) {
 
 		if(!is.null(subsetSurveyStrata))  SummerStrata = subset(SummerStrata,PID %in% subsetSurveyStrata)
@@ -151,11 +155,11 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 
 	# LFAs
 	if('lobster' %in% boundaries){
-		
+
 		if(area=='31a')area<-311
 		if(area=='31b')area<-312
 		if(addsubareas)addPolys(subset(subareas,SID==1),lty=3)
-	
+
 		lfa<-as.numeric(area)
 		if(lfa%in%LFAgrid$PID){
 			if(!is.na(lfa)){
@@ -184,8 +188,8 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
     		LFAgrid.dat$Y[il] = 45.02
     		il = which(LFAgrid.dat$label==35)
 			LFAgrid.dat$Y[il] = 45.23
-    		
-   			LFAgrid.dat = as.data.frame(rbind(LFAgrid.dat,c(41,-66,41.9,41)))	#add in lfa41 label		
+
+   			LFAgrid.dat = as.data.frame(rbind(LFAgrid.dat,c(41,-66,41.9,41)))	#add in lfa41 label
 			#addLabels(subset(LFAgrid.dat,!duplicated(label)),col=rgb(0,0,0,0.8),cex=labcex)
 		}
 
@@ -196,9 +200,9 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 		addLines(SFA)
 		addPolys(SPA,col=NULL)
 	}
-	
+
 	if('snowcrab' %in% boundaries){
-	
+
 	    text("CFA 23", x=-58.05, y=44.55, font=2, cex=1.0)
 	    text("CFA 24", x=-60.9, y=43.75, font=2, cex=1.0)
 	    text("CFA 4X", x=-64.2, y=43.25, font=2, cex=1.0)
@@ -208,15 +212,15 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 
 
 	addLines(EEZ,lty=4,lwd=2)
-	
+
 	# plots land
 	if(LT){
 		addPolys(coast,col=land.col,...)
 		if(plot.rivers)addLines(rivers,...)
 	}
-	
+
 	if(stippling)addStipples (coast, pch='.')
-	
+
 
 
 	# plot points
@@ -228,7 +232,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	if(!is.null(lines.lst)){
 		addLines(lines.lst[[1]],polyProps=lines.lst[[2]])
 	}
-	
+
 	# add grid lines
 	if(!is.null(grid)){
 		x<-seq(floor(xlim[1]),ceiling(xlim[2]),grid)
@@ -245,11 +249,11 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 
 
 	box(lwd=2)
-	
+
 
 	title(main=title)
 	options(warn=0)
-	
+
 
 }
 
