@@ -7,6 +7,17 @@
 planar2lonlat(x, proj.type, planar.coord.scale = NULL, newnames = c("lon",
   "lat"))
 }
+\arguments{
+\item{x}{= undocumented}
+
+\item{proj.type}{= undocumented}
+
+\item{planar.coord.scale}{= undocumented}
+
+\item{newnames}{= undocumented}
+}
 \description{
-inverse projection: planar to lon/lat using projection. convert planar coord systems (length scale defined in the CRS as +units=km or m)  to lon-lat
+inverse projection: planar to lon/lat using projection. convert
+planar coord systems (length scale defined in the CRS as +units=km or m)  to
+lon-lat
 }

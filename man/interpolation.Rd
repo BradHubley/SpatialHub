@@ -13,6 +13,8 @@ interpolation(contour.dat, ticks, nstrata, str.max, str.min, place = 0, aspr,
   subscale = res)
 }
 \arguments{
+\item{contour.dat}{= undocumented}
+
 \item{ticks}{= contour lines or strata definitions, 'define' will determine them according to the f(x) rule from Cochran 1977 (see Hubley et al. 2009)}
 
 \item{nstrata}{= number of strata when ticks='define'}
@@ -31,9 +33,17 @@ interpolation(contour.dat, ticks, nstrata, str.max, str.min, place = 0, aspr,
 
 \item{maxdist, }{nmax, idp, mod.type = arguments to be passed to interpolation function (idp is inverse distance power)}
 
+\item{nmax}{= undocumented}
+
+\item{idp}{= undocumented}
+
+\item{mod.type}{= undocumented}
+
 \item{smooth}{= logical, TRUE calls smoothing function}
 
 \item{smooth.fun}{= applies smooth.fun to data over a grid}
+
+\item{smooth.procedure}{= undocumented}
 
 \item{sres}{= resolution for smoothing (grid)}
 
@@ -43,6 +53,8 @@ interpolation(contour.dat, ticks, nstrata, str.max, str.min, place = 0, aspr,
 
 \item{blank.dist}{= blanking distance if missing will select the shortest distance to the most isolated point}
 
+\item{blank.eff}{= undocumented}
+
 \item{blank.type}{= how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance}
 
 \item{log.dat}{= logical, whether to log data}
@@ -50,6 +62,8 @@ interpolation(contour.dat, ticks, nstrata, str.max, str.min, place = 0, aspr,
 \item{covariate.dat}{= covariate data typically used in kriging}
 
 \item{subset.poly}{= inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)}
+
+\item{regrid}{= undocumented}
 
 \item{subset.eff}{= sets values to this outside the subset.poly}
 

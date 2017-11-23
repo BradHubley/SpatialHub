@@ -2,8 +2,7 @@
 % Please edit documentation in R/genran.r
 \name{genran}
 \alias{genran}
-\title{genran
-description Generates random points in a polygon (PBSmapping format), called by allocPoly}
+\title{genran}
 \usage{
 genran(npoints, bounding.poly, projection = "LL", mindist = NULL)
 }
@@ -15,6 +14,10 @@ genran(npoints, bounding.poly, projection = "LL", mindist = NULL)
 \item{projection}{= PBSmapping::PolySet attribute, default is Lat. and Lon.}
 
 \item{mindist}{= minimum distance (km) or buffer between stations}
+}
+\description{
+Generates random points in a polygon (PBSmapping format), called
+by allocPoly
 }
 \author{
 Brad Hubley

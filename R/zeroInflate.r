@@ -6,13 +6,17 @@
 #' @param type = how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance
 #' @param eff = what data is inserted, intended for zeros
 #' @param scale = how far beyond the range of the data are points inserted
-#' @author Brad Hubley 
+#' @param corners = undocumented
+#' @param type.scaler = undocumented
+#' @importFrom spatstat owin
+#' @importFrom spatstat as.ppp
+#' @importFrom spatstat distmap
+#' @importFrom spatstat nndist
+#' @author Brad Hubley
 #' @export
 
 zeroInflate = function(xyz,blank.dist,scale=20,corners=NULL, aspr=1, type=2, eff=0,type.scaler=1){
-	
 
-	require(spatstat)
 #    browser()
     pbd=F
     xyz.names = names(xyz)
@@ -41,11 +45,12 @@ zeroInflate = function(xyz,blank.dist,scale=20,corners=NULL, aspr=1, type=2, eff
     if(type==2)dims = c(round((ymax-ymin)/(blank.dist*type.scaler)*aspr),round((xmax-xmin)/(blank.dist*type.scaler)))
     blank.map = distmap(pts.ppp,dim=dims)
     blank.dat = data.frame(X=sort(rep(blank.map$xcol,blank.map$dim[1])),Y=rep(blank.map$yrow,blank.map$dim[2]),dist=as.vector(blank.map$v))
+    #MMM 2017 following line looks like a typo.  dist doesn't exist?
     blank.dat = subset(blank.dat,dist>blank.dist,c('X','Y'))
     xyz = merge(xyz,data.frame(blank.dat,Z=eff),all=T)
     if(pbd)print(paste("blanking distance",blank.dist))
 
     names(xyz) = xyz.names
     return(xyz)
-    
-}    
+
+}

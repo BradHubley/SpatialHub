@@ -7,6 +7,15 @@
 lonlat2planar(x, proj.type, input_names = c("lon", "lat"),
   newnames = c("plon", "plat"))
 }
+\arguments{
+\item{x}{= undocumented}
+
+\item{proj.type}{= undocumented}
+
+\item{input_names}{= undocumented}
+
+\item{newnames}{= undocumented}
+}
 \description{
 convert lon/lat to a projected surface using proj
 proj.type can be an internal code such as "utm20" or a proj4 argument

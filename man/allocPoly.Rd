@@ -13,6 +13,8 @@ allocPoly(poly.lst, bounding.poly, ntows, mindist = 1, pool.size = 4,
 
 \item{bounding.poly}{= PBSmapping::PolySet describing the area to be surveyed}
 
+\item{ntows}{= total number of stations to be selected}
+
 \item{mindist}{= minimum distance (km) or buffer between stations}
 
 \item{pool.size}{= multiplyer to n.tows. This function first generates a pool of random locations, then randomly selects from the pool stations that fulfill the criteria (allocation by strata, buffer distance, etc.)}
@@ -26,8 +28,6 @@ allocPoly(poly.lst, bounding.poly, ntows, mindist = 1, pool.size = 4,
 \item{show.pool}{= logical, if TRUE the initial pool of random stations is plotted on the map}
 
 \item{UTMzone}{= PBSmapping::PolySet attribute, auto-generated if missing}
-
-\item{n.tows}{= total number of stations to be selected}
 }
 \description{
 ALLOCATION by STRATIFIED RANDOM DESIGN based on bottom type (or another polygon based non-continuous stratifying variable)

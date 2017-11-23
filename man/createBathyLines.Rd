@@ -9,3 +9,29 @@ createBathyLines(input.fp = file.path(project.datadirectory("bio.lobster"),
   interval = 10, batch = 100, range = c(10, 5000), save.by = 1000,
   digits = 3, dneg = T, output.fn = "bathyPoly")
 }
+\arguments{
+\item{input.fp}{= undocumented}
+
+\item{input.fn}{= undocumented}
+
+\item{redo}{= undocumented}
+
+\item{interval}{= undocumented}
+
+\item{batch}{= undocumented}
+
+\item{range}{= undocumented}
+
+\item{save.by}{= undocumented}
+
+\item{digits}{= undocumented}
+
+\item{dneg}{= undocumented}
+
+\item{output.fn}{= undocumented}
+}
+\description{
+this function was used to create bathy lines from xyz data from
+topex bathymetry downloaded from  \url{http://topex.ucsd.edu/cgi-bin/get_data.cgi}
+specify extent in website to get data)
+}

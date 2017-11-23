@@ -6,11 +6,13 @@
 #' @param type = how spaced out the zeros are, 1 = avg. nearest neighbour distance, 2 = blanking distance
 #' @param eff = what data is inserted, intended for zeros
 #' @param scale = how far beyond the range of the data are points inserted
-#' @author Brad Hubley 
+#' @param type.scaler = undocumented
+#' @importFrom spatstat nndist
+#' @author Brad Hubley
 #' @export
 
 blanking<-function(surv.dat,blank.dist,aspr, type=1, eff=0,scale=0.5,type.scaler=0.5){
-	
+
     surv.pts<-subset(surv.dat,select=c('X','Y'))
     xmin<-min(surv.pts$X)
     xmax<-max(surv.pts$X)
@@ -28,5 +30,5 @@ blanking<-function(surv.dat,blank.dist,aspr, type=1, eff=0,scale=0.5,type.scaler
     print(paste("blanking distance",blank.dist))
 
     blank.dat
-    
-}    
+
+}

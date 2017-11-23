@@ -2,11 +2,32 @@
 % Please edit documentation in R/smoothing.r
 \name{smoothing}
 \alias{smoothing}
-\title{smoothing
-description applies a function on spatial data over a grid}
+\title{smoothing}
 \usage{
 smoothing(dat, fun = mean, res = 0.01, aspr = 1.34564, no.data = "0",
   matrix = F, procedure = 1, subset.poly = NULL, expand = 0.1)
+}
+\arguments{
+\item{dat}{= undocumented}
+
+\item{fun}{= undocumented}
+
+\item{res}{= undocumented}
+
+\item{aspr}{= undocumented}
+
+\item{no.data}{= undocumented}
+
+\item{matrix}{= undocumented}
+
+\item{procedure}{= undocumented}
+
+\item{subset.poly}{= undocumented}
+
+\item{expand}{= undocumented}
+}
+\description{
+applies a function on spatial data over a grid
 }
 \author{
 Brad Hubley

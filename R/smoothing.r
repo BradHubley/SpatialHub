@@ -1,24 +1,33 @@
 #' @title smoothing
-#' description applies a function on spatial data over a grid
-#' @author Brad Hubley 
+#' @description applies a function on spatial data over a grid
+#' @param dat = undocumented
+#' @param fun = undocumented
+#' @param res = undocumented
+#' @param aspr = undocumented
+#' @param no.data = undocumented
+#' @param matrix = undocumented
+#' @param procedure = undocumented
+#' @param subset.poly = undocumented
+#' @param expand = undocumented
+#' @author Brad Hubley
 #' @export
 
 smoothing<-function(dat,fun=mean,res=0.01,aspr=1.345640,no.data='0',matrix=F,procedure=1,subset.poly=NULL,expand=0.1){
-	
+
 	print("smoothing start")
 	print(Sys.time())
 	if(is.null(subset.poly)){
 	   	Xs<-seq(min(dat$X)-expand,max(dat$X)+expand,res*aspr)
 		Ys<-seq(min(dat$Y)-expand,max(dat$Y)+expand, res)
 	}
-	
+
    	if(!is.null(subset.poly)){
 	   	Xs<-seq(min(subset.poly$X)-res,max(subset.poly$X)+res,res*aspr)
 		Ys<-seq(min(subset.poly$Y)-res,max(subset.poly$Y)+res, res)
 	}
 	Z<-matrix(NA,length(Xs),length(Ys))
 	CoV<-matrix(NA,length(Xs),length(Ys))
-	
+
 	for(i in 1:(length(Xs)-1)){
 		for(j in 1:(length(Ys)-1)){
 			square<-data.frame(X=c(Xs[i],Xs[i+1],Xs[i+1],Xs[i],Xs[i]),Y=c(Ys[j],Ys[j],Ys[j+1],Ys[j+1],Ys[j]))
@@ -57,10 +66,10 @@ smoothing<-function(dat,fun=mean,res=0.01,aspr=1.345640,no.data='0',matrix=F,pro
 		if(i %in% round(seq(length(Xs)/100,length(Xs),length(Xs)/100)))print(paste(round(i/length(Xs)*100),"%"))
 	}
 
-	
+
 	print("smoothing end")
 	print(Sys.time())
-	
+
 	return(result)
 }
 

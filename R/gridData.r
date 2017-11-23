@@ -1,18 +1,28 @@
 #' @title gridData
-#' @description This function summarizes data onto a grid, creates PBSmapping polySet and polyData 
-#' @param \code{Data} = PBSmapping::EventData
-#' @param \code{domain.poly} = polygon the defines the total area from which to construct the grid, dervied from data if missing
-#' @param \code{lvls} = levels 
-#' @param \code{bcol} = RColorBrewer color palette
-#' @param \code{border} = polygon border
-#' @param \code{FUN} = summary function to apply to data within a grid cell
-#' @param \code{grid.size} = size of the grid cells (km)
-#' @param \code{aspr} = aspect ratio for for creating square grid, default is to calculate from data
-#' @param \code{sx,sy,ex,ey} = defines total extent to grid, defaults to the extent of the data
-#' @author Brad Hubley 
+#' @description This function summarizes data onto a grid, creates PBSmapping polySet and polyData
+#' @param Data = PBSmapping::EventData
+#' @param domain.poly = polygon the defines the total area from which to construct the grid, dervied from data if missing
+#' @param lvls = levels
+#' @param bcol = RColorBrewer color palette
+#' @param border = polygon border
+#' @param FUN = summary function to apply to data within a grid cell
+#' @param grid.size = size of the grid cells (km)
+#' @param aspr = aspect ratio for for creating square grid, default is to calculate from data
+#' @param sx = defines total extent to grid, defaults to the extent of the data
+#' @param sy = defines total extent to grid, defaults to the extent of the data
+#' @param ex = defines total extent to grid, defaults to the extent of the data
+#' @param ey = defines total extent to grid, defaults to the extent of the data
+#' @importFrom RColorBrewer brewer.pal
+#' @importFrom PBSmapping combineEvents
+#' @importFrom PBSmapping findCells
+#' @importFrom PBSmapping findPolys
+#' @importFrom PBSmapping makeGrid
+#' @importFrom PBSmapping makeProps
+#' @importFrom gstat fit.variogram
+#' @author Brad Hubley
 #' @export
 
-gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.size=1,aspr="calculate",sx,sy,ex,ey) {  
+gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.size=1,aspr="calculate",sx,sy,ex,ey) {
 
 	names(Data)[1:4]<-c("EID","X","Y","Z")
 
@@ -33,16 +43,16 @@ gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.
 	gx = grid.size/111.12 * aspr
 	gy = grid.size/111.12
 	grid   <- makeGrid(x=seq(sx,ex,gx),y=seq(sy,ey,gy),projection="LL")
-	
-	
+
+
 	# locate EventData in grid and create polyData with summary stats
-	locData<- findCells(Data, grid) 
+	locData<- findCells(Data, grid)
 	pdata  <- combineEvents(Data, locData, FUN=FUN)
 
-	cols   <- brewer.pal(length(lvls),bcol) 
-	pdata  <- makeProps(pdata, c(lvls,max(lvls)*100), "col", cols) 
+	cols   <- brewer.pal(length(lvls),bcol)
+	pdata  <- makeProps(pdata, c(lvls,max(lvls)*100), "col", cols)
 	pdata$border<-border
-	
+
 	return(list(polys=grid, polyData=pdata, lvls=lvls, col=cols))
-	
+
 }
