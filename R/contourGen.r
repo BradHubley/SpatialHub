@@ -1,5 +1,13 @@
 #' @title contourGen
 #' @description Generates contour polygons from image data
+#' @param contour.dat = undocumented
+#' @param lvls = undocumented
+#' @param Poly = undocumented
+#' @param col = undocumented
+#' @param colorAdj = undocumented
+#' @importFrom grDevices contourLines
+#' @importFrom RColorBrewer brewer.pal
+#' @importFrom PBSmapping convCP
 #' @export
 contourGen<-function(contour.dat,lvls,Poly,col="YlGn",colorAdj){
 
@@ -11,5 +19,5 @@ contourGen<-function(contour.dat,lvls,Poly,col="YlGn",colorAdj){
 	else color<-brewer.pal(length(lvls)+colorAdj,col)[-colorAdj]
 	Cont.data<- data.frame(PID=1:length(lvls),col=color,border=NA)
 
-	list(Cont.poly=Cont.poly,Cont.data=Cont.data)	
+	list(Cont.poly=Cont.poly,Cont.data=Cont.data)
 }

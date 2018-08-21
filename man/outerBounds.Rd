@@ -6,6 +6,11 @@
 \usage{
 outerBounds(pointData, round.digit = 3)
 }
+\arguments{
+\item{pointData}{= undocumented}
+
+\item{round.digit}{= undocumented}
+}
 \description{
 for creating a tight polygon around a dense set of points
 }

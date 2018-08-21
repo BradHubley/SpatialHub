@@ -21,7 +21,14 @@
 #' @param subset.poly = inclusion polygon to subset spatially, 'square' used to close polygons (useful when not smoothing or blanking)
 #' @param subset.eff = sets values to this outside the subset.poly
 #' @param subscale = size of inset when subset.poly = 'square'
-#' @author Brad Hubley 
+#' @param contour.dat = undocumented
+#' @param nmax = undocumented
+#' @param idp = undocumented
+#' @param mod.type = undocumented
+#' @param smooth.procedure = undocumented
+#' @param blank.eff = undocumented
+#' @param regrid = undocumented
+#' @author Brad Hubley
 #' @export
 
 
@@ -29,7 +36,7 @@
 
 
 interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,interp.method='gstat',res=0.01,maxdist=Inf,nmax=8,idp=0.5,mod.type="Sph",smooth=F,smooth.fun=median,smooth.procedure=1,sres=1/60.1,no.data='0',blank=T,blank.dist,blank.eff=0,blank.type=2,log.dat=F,covariate.dat=NULL,subset.poly=NULL,regrid=F,subset.eff=NA,subscale=res){
-	
+
 
 	print("contour start")
 	print(Sys.time())
@@ -39,18 +46,18 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 	if(!is.null(covariate.dat))names(contour.dat)[5]<-"CoV"
 	dataPoints1<-contour.dat[,1:3]
 	if(is.numeric(dataPoints1$EID)==F)dataPoints1$EID<-1:nrow(dataPoints1)
-	
+
 	if(interp.method=='krige')blank=F
-	
+
 
 	# Aspect ratio
 	if(missing(aspr)){
 		aspr=1/cos(rad(mean(contour.dat$Y)))
 		print(paste('Aspect ratio',aspr))
 	}
-	
-	
-	# SMOOTHING	
+
+
+	# SMOOTHING
 	if(smooth==T){
 		if(interp.method!='none'){
 			contour.dat<-smoothing(contour.dat,fun=smooth.fun,res=sres,aspr=aspr,no.data=no.data,subset.poly=subset.poly,procedure=smooth.procedure)
@@ -61,17 +68,17 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 			names(image.dat)<-c('x','y','z')
 		}
 	}
-	
+
 	# BLANKING
 	if(blank==T) {
 		if(missing(blank.dist))contour.dat<-blanking(contour.dat,aspr=aspr,type=blank.type,eff=blank.eff)
 		if(!missing(blank.dist))contour.dat<-blanking(contour.dat,blank.dist=blank.dist,aspr=aspr,type=blank.type,eff=blank.eff)
 	}
-		
+
 	dataPoints2<-contour.dat[,1:3]
 	dataPoints2$EID<-1:nrow(dataPoints2)
-	# INTERPOLATION	
-	
+	# INTERPOLATION
+
 	if(!missing(ticks))if(ticks[1]=='define'){
 		ticks<-unique(defineStrata(contour.dat$Z,nstrata,str.min,str.max,place))
 		nstrata<-length(ticks)-1
@@ -80,7 +87,7 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 		if(missing(ticks))print("ticks or nstrata must be specified")
 		nstrata<-length(ticks)-1
 	}
-	
+
 	if(!is.null(subset.poly)){
 		if(subset.poly=='square'){
 			inset=subscale*0.8
@@ -105,8 +112,8 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 		image.dat$z[image.dat$z>str.max]<-str.max
 		image.dat$z[image.dat$z<str.min]<-subset.eff		##### not tested for other applications!!!
 	}
-	
-		
+
+
 	# SUBSET POLYGON
 	if(!is.null(subset.poly)){
 		if(subset.poly=='square'){
@@ -120,14 +127,14 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 		image.dat$z<-matrix(tmp$Z,length(image.dat$x),length(image.dat$y))
 	}
 
-	
+
 
 	print("contour end")
 	print(Sys.time())
 
-	
+
 	output<-list(contour.dat=contour.dat,image.dat=image.dat,image.var=image.var,image.mod=image.mod,str.def=ticks)
-	
-	
+
+
 	return(output)
 }

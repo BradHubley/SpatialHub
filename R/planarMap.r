@@ -1,27 +1,58 @@
 #' @title planarMap
-#' @description a  mapping function that uses levelplot to plot data in planar coordinates 
-#' @param xyz data to be plotted 
-#' @param corners 2x2 dataframe that specify the corners of the map i.e. corners = data.frame(lon=c(-67.54,-56.5),lat=c(41,47.2)) 
+#' @description a  mapping function that uses levelplot to plot data in planar coordinates
+#' @param xyz data to be plotted
+#' @param corners 2x2 dataframe that specify the corners of the map i.e. corners = data.frame(lon=c(-67.54,-56.5),lat=c(41,47.2))
 #' @param projection to be used, see: lookup.projection.params
 #' @param datascale for legend that describes the z variable
 #' @param interpolation logical, does thin plate spline interpolation of the z variable and plots the result
 #' @param add.zeros uses zeroInflate() to add zeros where there is no data before the interpolation (assumes zero outside the sampled area)
 #' @param theta interpolation parameter
 #' @param pts data points to be overlayed on the map
-#' @param save logical TRUE saves the map as a .png, FALSE prints to screen 
+#' @param save logical TRUE saves the map as a .png, FALSE prints to screen
+#' @param depths = undocumented
+#' @param colpts = undocumented
+#' @param annot = undocumented
+#' @param annot.cex = undocumented
+#' @param scalebar = undocumented
+#' @param col.regions = undocumented
+#' @param at = undocumented
+#' @param fn = undocumented
+#' @param loc = undocumented
+#' @param rez = undocumented
+#' @param pt.cex = undocumented
+#' @param pt.pch = undocumented
+#' @param pt.col = undocumented
+#' @param colorkey = undocumented
+#' @param fill = undocumented
+#' @param log.variable = undocumented
+#' @param rev = undocumented
+#' @param ... = undocumented
+#' @importFrom grDevices colorRampPalette
+#' @importFrom grDevices dev.off
+#' @importFrom grDevices png
+#' @importFrom graphics text
+#' @importFrom grDevices rgb
+#' @importFrom stats na.omit
+#' @importFrom stats predict
+#' @importFrom stats runif
+#' @importFrom lattice levelplot
+#' @importFrom lattice panel.levelplot
+#' @importFrom lattice panel.arrows
+#' @importFrom lattice panel.text
+#' @importFrom lattice panel.xyplot
+#' @importFrom sp sp.lines
+#' @importFrom sp sp.polygons
 #' @author Brad Hubley (mostly copied from Jae Choi's bio.spacetime::map)
-#' @examples
-#' planarMap(xyz,depths=F)
 #' @export
 
   planarMap = function( xyz, depths=T, pts=NULL, colpts=F, annot=NULL, annot.cex=2.2, scalebar = T, projection = "utm20", col.regions=T, datascale=seq(0,1,l=50), at=datascale, fn=paste("map", trunc(runif(1)*1e8), sep=""), loc=tempdir(), corners=NULL, rez=c(1,1), save=F, pt.cex=0.5, pt.pch=16, pt.col='black',colorkey=NULL, fill=T, log.variable=F, interpolation=F, add.zeros=F, theta=50, rev=F, ... ) {
 
   options(stringsAsFactors=F)
-    # map using levelplot 
-    
+    # map using levelplot
+
     # spatial coordinates
     xlim =ylim = NULL
-    
+
     if ( !is.null(corners) ) {
       if ( is.null(corners$plon) ) corners = lonlat2planar( corners,  proj.type= projection )
     }
@@ -65,10 +96,10 @@
       if(add.zeros) {
         #browser()
         xyz =na.omit( zeroInflate(xyz,corners=corners,type=2,type.scaler=0.2,eff=eff) )
-      } 
+      }
       #browser()
       u = fastTps(x=xyz[,c("plon","plat")] , Y=xyz[,'z'], theta=theta )
-      
+
 
       xyz = data.frame( baseLine, z = predict(u, xnew=baseLine))
     }
@@ -99,9 +130,9 @@
       xyz$z[xyz$z<min(datascale)]=min(datascale)
     }
 
-    lp = levelplot( z ~ plon+plat, data=xyz, aspect="iso", pts=pts, colpts=colpts, annot=annot, 
+    lp = levelplot( z ~ plon+plat, data=xyz, aspect="iso", pts=pts, colpts=colpts, annot=annot,
       annot.cex=annot.cex, xlab="", ylab="", scales=list(draw=F), col.regions=col.regions, at=at, xlim=xlim, ylim=ylim,
-      colorkey=colorkey , rez=rez,  
+      colorkey=colorkey , rez=rez,
       panel = function(x, y, z, rez=rez,  ...) {
 
         panel.levelplot (x, y, z, aspect="iso", rez=rez, ...)
@@ -147,7 +178,7 @@
       print(lp)
       dev.off()
       print(fn)
-    } 
+    }
     else{
       print(lp)
     }

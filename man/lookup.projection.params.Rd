@@ -6,6 +6,10 @@
 \usage{
 lookup.projection.params(x)
 }
-\examples{
-see: http://www.progonos.com/furuti/MapProj/Normal/TOC/cartTOC.html
+\arguments{
+\item{x}{= undocumented}
+}
+\description{
+Looks up projection parameters; see
+\url{http://www.progonos.com/furuti/MapProj/Normal/TOC/cartTOC.html}
 }

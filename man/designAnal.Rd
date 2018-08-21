@@ -2,8 +2,7 @@
 % Please edit documentation in R/designAnal.r
 \name{designAnal}
 \alias{designAnal}
-\title{designAnal
-description Analysis of efficiency gains from stratified randon versus simple random with "BIOsurvey" or "PEDstrata" package. This function needs work! :(}
+\title{designAnal}
 \usage{
 designAnal(restrat.dat, restrat.areas, original.strata = NULL,
   original.areas = NULL, years = 2007:1981, plot = T, domain = T,
@@ -23,6 +22,13 @@ designAnal(restrat.dat, restrat.areas, original.strata = NULL,
 \item{plot}{= logical, to produce plot}
 
 \item{domain}{= logical, to use a domain estimator when restratifying}
+
+\item{biomass}{= undocumented}
+}
+\description{
+Analysis of efficiency gains from stratified randon versus
+simple random with "BIOsurvey" or "PEDstrata" package. This function needs
+work! :(
 }
 \author{
 Brad Hubley

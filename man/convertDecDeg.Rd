@@ -7,18 +7,18 @@
 convertDecDeg(x, format = "dec.deg")
 }
 \arguments{
-\item{\code{x}}{= coordinates}
+\item{x}{= coordinates}
 
-\item{\code{format}}{= dec.deg Acceptable values include dec.deg, deg.min}
+\item{format}{= dec.deg Acceptable values include dec.deg, deg.min}
 }
 \description{
 This function can convert various formats to decimal degrees or to degrees-minutes
 }
 \examples{
 convertDecDeg(4730.3)
-[1] 47.505
+47.505
 convertDecDeg(47.505, 'deg.min')
-[1] 4730.3
+4730.3
 }
 \author{
 Brad Hubley
