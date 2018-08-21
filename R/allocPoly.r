@@ -17,6 +17,8 @@
 allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.tows=NULL, map=NULL,lplace='bottomleft',show.pool=F,UTMzone){
 		
 	options(warn=-1)
+	require(splancs)
+	require(spatstat)
 	# create pool of random points
 	if(missing(ntows))ntows<-sum(poly.lst[[2]]$allocation)
 	npool=ntows*pool.size
@@ -74,11 +76,11 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 		towsi[1]<-ntows-sum(towsi[-1])
 		strata<-names(towsi)
 	}
-	browser()
+	#browser()
 	for(i in 1:length(strata)){
 		LocSet<-findPolys(pool.EventData,subset(strataPolys.dat,PName==strata[i]))
+		if(is.null(LocSet))stop("increase pool size")
 		strataTows.lst[[i]]<-data.frame(subset(pool.EventData,EID%in%LocSet$EID),Poly.ID=Poly.ID[i],STRATA=strata[i])
-	
 	}
 	
 	Tows<-do.call("rbind",strataTows.lst)
@@ -114,7 +116,7 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 	#browser()
 	for(i in 1:length(strata)){
 		Tows.lst[[i]]<-subset(Tows,STRATA==strata[i])[1:towsi[strata[i]],]
-	
+		if(any(is.na(Tows.lst[[i]])))stop("increase pool size")
 	}
 	Tows<-do.call("rbind",Tows.lst)
 	Tows$EID<-1:nrow(Tows)
@@ -123,7 +125,7 @@ allocPoly<-function(poly.lst,bounding.poly,ntows,mindist=1,pool.size=4,repeated.
 	if(!missing(UTMzone))attr(Tows,"zone")<-UTMzone
 			
 	if(!is.null(repeated.tows))Tows<-list(new.tows=Tows, repeated.tows=repeated.tows)
-
+#browser()
 	if(!is.null(map)){
 		bioMap(map,poly.lst=list(surveyed.polys,poly.lst[[2]]))
 		bg.col<-tapply(poly.lst[[2]]$col,poly.lst[[2]]$PName,unique)
