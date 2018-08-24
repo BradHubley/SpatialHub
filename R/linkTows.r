@@ -48,7 +48,11 @@ linkTows <- function(events,tows,expwin=0.05,mindist=10,...){
 	}
 	events$NNdist = NNdist
 	events$NNwhich = NNwhich
-
+	events$Tdiff = NA
+	lts = unique(events$NNwhich)
+	for(i in 1:length(lts)){
+		events$Tdiff[events$NNwhich==lts[i]] = tows$SET_DATE[tows$EID==lts[i]] - events$TOW_DATE[events$NNwhich==lts[i]]
+	}
 
 	events = subset(events,NNdist<mindist)	
 
