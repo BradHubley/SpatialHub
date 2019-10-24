@@ -93,7 +93,8 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	if(area=='4X')   		{ xlim=c(-67,-63.1); 	ylim=c(42.5,45)     }
 	if(area=='23')   		{ xlim=c(-60.5,-57); 	ylim=c(43,46.2)   	}
 	if(area=='24')   		{ xlim=c(-63.5,-59); 	ylim=c(42.5,45.5)   }
-	if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
+  if(area=='not4X')  		{ xlim=c(-63.5,-57); 	ylim=c(42.5,47.5)   }
+  if(area=='halibut')  	{ xlim=c(-68,-47); 	ylim=c(40,48)   }
 
 	options(stringsAsFactors=F,warn=-1)
 
