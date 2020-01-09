@@ -149,7 +149,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	# NAFO
 	if(!is.null(nafo)){
 
-        nafo.xy<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Management_Areas","Fisheries","NAFO","nafo.csv"))
+       # nafo.xy<-read.csv(file.path( project.datadirectory("bio.polygons"), "data","Management_Areas","Fisheries","NAFO","nafo.csv"))
         if(nafo[1]=='all')nafo<-unique(nafo.xy$label)
         nafo.sel<-subset(nafo.xy,label%in%nafo)
         nafo.dat<-merge(calcCentroid(nafo.sel),nafo.sel[c("PID","label")])[!duplicated(nafo.sel[c("PID","label")]),]
