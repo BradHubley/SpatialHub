@@ -52,7 +52,7 @@ interpolation<-function(contour.dat,ticks,nstrata,str.max,str.min,place=0,aspr,i
 
 	# Aspect ratio
 	if(missing(aspr)){
-		aspr=1/cos(rad(mean(contour.dat$Y)))
+		aspr=1/cos(CircStats::rad(mean(contour.dat$Y)))
 		print(paste('Aspect ratio',aspr))
 	}
 

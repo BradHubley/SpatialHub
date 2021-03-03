@@ -36,7 +36,7 @@ gridData <- function(Data,domain.poly,lvls,bcol="YlGnBu",border=1,FUN=mean,grid.
 
 	# Aspect ratio
 	if(aspr=="calculate"){
-		aspr=1/cos(rad(mean(c(sy,ey))))
+		aspr=1/cos(CircStats::rad(mean(c(sy,ey))))
 	}
 
 	# Make grid
