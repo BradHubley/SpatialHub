@@ -4,10 +4,26 @@
 \alias{imagePrep}
 \title{imagePrep}
 \usage{
-imagePrep(X, Y, Z, dat, aspr = 1.34564, res = 0.02, summary.dat = F,
-  log.dat = T, method = "gstat", matrix.dat = T, idp = 0.5, nmax = 7,
-  maxdist = Inf, subset.poly = NULL, covariate.dat = NULL, regrid = F,
-  mod.type = "Sph", subscale = 0.01)
+imagePrep(
+  X,
+  Y,
+  Z,
+  dat,
+  aspr = 1.34564,
+  res = 0.02,
+  summary.dat = F,
+  log.dat = T,
+  method = "gstat",
+  matrix.dat = T,
+  idp = 0.5,
+  nmax = 7,
+  maxdist = Inf,
+  subset.poly = NULL,
+  covariate.dat = NULL,
+  regrid = F,
+  mod.type = "Sph",
+  subscale = 0.01
+)
 }
 \arguments{
 \item{X}{= undocumented}

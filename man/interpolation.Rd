@@ -4,13 +4,36 @@
 \alias{interpolation}
 \title{interpolation}
 \usage{
-interpolation(contour.dat, ticks, nstrata, str.max, str.min, place = 0, aspr,
-  interp.method = "gstat", res = 0.01, maxdist = Inf, nmax = 8,
-  idp = 0.5, mod.type = "Sph", smooth = F, smooth.fun = median,
-  smooth.procedure = 1, sres = 1/60.1, no.data = "0", blank = T,
-  blank.dist, blank.eff = 0, blank.type = 2, log.dat = F,
-  covariate.dat = NULL, subset.poly = NULL, regrid = F, subset.eff = NA,
-  subscale = res)
+interpolation(
+  contour.dat,
+  ticks,
+  nstrata,
+  str.max,
+  str.min,
+  place = 0,
+  aspr,
+  interp.method = "gstat",
+  res = 0.01,
+  maxdist = Inf,
+  nmax = 8,
+  idp = 0.5,
+  mod.type = "Sph",
+  smooth = F,
+  smooth.fun = median,
+  smooth.procedure = 1,
+  sres = 1/60.1,
+  no.data = "0",
+  blank = T,
+  blank.dist,
+  blank.eff = 0,
+  blank.type = 2,
+  log.dat = F,
+  covariate.dat = NULL,
+  subset.poly = NULL,
+  regrid = F,
+  subset.eff = NA,
+  subscale = res
+)
 }
 \arguments{
 \item{contour.dat}{= undocumented}

@@ -4,9 +4,18 @@
 \alias{allocPoly}
 \title{allocPoly}
 \usage{
-allocPoly(poly.lst, bounding.poly, ntows, mindist = 1, pool.size = 4,
-  repeated.tows = NULL, map = NULL, lplace = "bottomleft",
-  show.pool = F, UTMzone)
+allocPoly(
+  poly.lst,
+  bounding.poly,
+  ntows,
+  mindist = 1,
+  pool.size = 4,
+  repeated.tows = NULL,
+  map = NULL,
+  lplace = "bottomleft",
+  show.pool = F,
+  UTMzone
+)
 }
 \arguments{
 \item{poly.lst}{= list containing PBSmapping::PolySet and PBSmapping::PolyData that describe strata polygons, PolyData may contain allocation to specifiy the number of station to be selected for each strata and repeats to indicate how many stations should be selected from repeated.tows}

@@ -4,8 +4,20 @@
 \alias{gridData}
 \title{gridData}
 \usage{
-gridData(Data, domain.poly, lvls, bcol = "YlGnBu", border = 1, FUN = mean,
-  grid.size = 1, aspr = "calculate", sx, sy, ex, ey)
+gridData(
+  Data,
+  domain.poly,
+  lvls,
+  bcol = "YlGnBu",
+  border = 1,
+  FUN = mean,
+  grid.size = 1,
+  aspr = "calculate",
+  sx,
+  sy,
+  ex,
+  ey
+)
 }
 \arguments{
 \item{Data}{= PBSmapping::EventData}

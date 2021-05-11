@@ -4,8 +4,15 @@
 \alias{blanking}
 \title{blanking}
 \usage{
-blanking(surv.dat, blank.dist, aspr, type = 1, eff = 0, scale = 0.5,
-  type.scaler = 0.5)
+blanking(
+  surv.dat,
+  blank.dist,
+  aspr,
+  type = 1,
+  eff = 0,
+  scale = 0.5,
+  type.scaler = 0.5
+)
 }
 \arguments{
 \item{surv.dat}{= data.frame of points containing X and Y coordinates}

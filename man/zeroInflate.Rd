@@ -4,8 +4,16 @@
 \alias{zeroInflate}
 \title{zeroInflate or blanking}
 \usage{
-zeroInflate(xyz, blank.dist, scale = 20, corners = NULL, aspr = 1,
-  type = 2, eff = 0, type.scaler = 1)
+zeroInflate(
+  xyz,
+  blank.dist,
+  scale = 20,
+  corners = NULL,
+  aspr = 1,
+  type = 2,
+  eff = 0,
+  type.scaler = 1
+)
 }
 \arguments{
 \item{xyz}{= data.frame of points containing X and Y coordinates}

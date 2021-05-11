@@ -4,8 +4,15 @@
 \alias{assignStation}
 \title{assignStation}
 \usage{
-assignStation(events, maxdist = 0.01, res = 0.005, expwin = 0.05,
-  map = NULL, lines = F, ...)
+assignStation(
+  events,
+  maxdist = 0.01,
+  res = 0.005,
+  expwin = 0.05,
+  map = NULL,
+  lines = F,
+  ...
+)
 }
 \arguments{
 \item{events}{= PBSmapping::EventData of tows}

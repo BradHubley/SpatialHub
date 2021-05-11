@@ -4,9 +4,16 @@
 \alias{designAnal}
 \title{designAnal}
 \usage{
-designAnal(restrat.dat, restrat.areas, original.strata = NULL,
-  original.areas = NULL, years = 2007:1981, plot = T, domain = T,
-  biomass = F)
+designAnal(
+  restrat.dat,
+  restrat.areas,
+  original.strata = NULL,
+  original.areas = NULL,
+  years = 2007:1981,
+  plot = T,
+  domain = T,
+  biomass = F
+)
 }
 \arguments{
 \item{restrat.dat}{= dataset that conatins four columns (Year, sampleID, strataID, response variable)}

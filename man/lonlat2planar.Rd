@@ -4,8 +4,12 @@
 \alias{lonlat2planar}
 \title{lonlat2planar}
 \usage{
-lonlat2planar(x, proj.type, input_names = c("lon", "lat"),
-  newnames = c("plon", "plat"))
+lonlat2planar(
+  x,
+  proj.type,
+  input_names = c("lon", "lat"),
+  newnames = c("plon", "plat")
+)
 }
 \arguments{
 \item{x}{= undocumented}
