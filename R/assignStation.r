@@ -2,7 +2,7 @@
 #' @description Assigns station number to tows based on proximity.
 #' @param events = PBSmapping::EventData of tows
 #' @param maxdist = maximum distance between points considered to be the same statiom
-#' @param res = resolution of the spatstat::distmap
+#' @param res = resolution of the spatstat.geom::distmap
 #' @param expwin = expansion window beyond supplied points that defines the area examined
 #' @param map = preset location to pass to bioMap
 #' @param lines = logical, if TRUE X1, Y1, X2, Y2 must be supplied to describe the tows
@@ -12,7 +12,10 @@
 #' @importFrom PBSmapping as.EventData
 #' @importFrom PBSmapping calcCentroid
 #' @importFrom PBSmapping convCP
-#' @importFrom spatstat as.psp
+#' @importFrom spatstat.geom as.psp
+#' @importFrom spatstat.geom as.ppp
+#' @importFrom spatstat.geom distmap
+#' @importFrom spatstat.geom owin
 #' @author Brad Hubley
 #' @export
 assignStation <- function(events,maxdist=0.01,res=0.005,expwin=0.05,map=NULL,lines=F,...){

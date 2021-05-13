@@ -7,7 +7,10 @@
 #' @param eff = what data is inserted, intended for zeros
 #' @param scale = how far beyond the range of the data are points inserted
 #' @param type.scaler = undocumented
-#' @importFrom spatstat nndist
+#' @importFrom spatstat.geom nndist
+#' @importFrom spatstat.geom as.ppp
+#' @importFrom spatstat.geom distmap
+#' @importFrom spatstat.geom owin
 #' @author Brad Hubley
 #' @export
 

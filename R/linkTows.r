@@ -1,22 +1,22 @@
-#' @title assignStation
-#' @description Assigns station number to tows based on proximity. 
+#' @title linkTows
+#' @description Assigns station number to tows based on proximity.
 #' @param events = PBSmapping::EventData of tows
-#' @param maxdist = maximum distance between points considered to be the same statiom
-#' @param res = resolution of the spatstat::distmap
-#' @param expwin = expansion window beyond supplied points that defines the area examined 
-#' @param map = preset location to pass to bioMap
-#' @param lines = logical, if TRUE X1, Y1, X2, Y2 must be supplied to describe the tows
-#' @param ... additional arguments passed to bioMap
-#' @author Brad Hubley 
+#' @param tows =
+#' @param expwin = expansion window beyond supplied points that defines the area examined
+#' @param mindist =
+#' @importFrom spatstat.geom nndist
+#' @importFrom spatstat.geom as.ppp
+#' @importFrom spatstat.geom owin
+#' @author Brad Hubley
 #' @export
-linkTows <- function(events,tows,expwin=0.05,mindist=10,...){
+linkTows <- function(events,tows,expwin=0.05,mindist=10){
 
 
 		tows$EID = 1:nrow(tows)
 		tows<-as.EventData(tows)
 		attr(tows,"projection") = "LL"
 		tows = convUL(tows)
-		
+
 		events$EID = 1:nrow(events)
 		events<-as.EventData(events)
 		attr(events,"projection") = "LL"
@@ -54,7 +54,7 @@ linkTows <- function(events,tows,expwin=0.05,mindist=10,...){
 		events$Tdiff[events$NNwhich==lts[i]] = tows$SET_DATE[tows$EID==lts[i]] - events$TOW_DATE[events$NNwhich==lts[i]]
 	}
 
-	events = subset(events,NNdist<mindist)	
+	events = subset(events,NNdist<mindist)
 
 	return(list(events=events,tows=tows))
 }
