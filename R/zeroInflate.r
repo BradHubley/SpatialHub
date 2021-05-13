@@ -8,10 +8,10 @@
 #' @param scale = how far beyond the range of the data are points inserted
 #' @param corners = undocumented
 #' @param type.scaler = undocumented
-#' @importFrom spatstat owin
-#' @importFrom spatstat as.ppp
-#' @importFrom spatstat distmap
-#' @importFrom spatstat nndist
+#' @importFrom spatstat.geom owin
+#' @importFrom spatstat.geom as.ppp
+#' @importFrom spatstat.geom distmap
+#' @importFrom spatstat.geom nndist
 #' @author Brad Hubley
 #' @export
 

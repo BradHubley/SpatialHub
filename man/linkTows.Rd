@@ -2,24 +2,18 @@
 % Please edit documentation in R/linkTows.r
 \name{linkTows}
 \alias{linkTows}
-\title{assignStation}
+\title{linkTows}
 \usage{
-linkTows(events, tows, expwin = 0.05, mindist = 10, ...)
+linkTows(events, tows, expwin = 0.05, mindist = 10)
 }
 \arguments{
 \item{events}{= PBSmapping::EventData of tows}
 
+\item{tows}{=}
+
 \item{expwin}{= expansion window beyond supplied points that defines the area examined}
 
-\item{...}{additional arguments passed to bioMap}
-
-\item{maxdist}{= maximum distance between points considered to be the same statiom}
-
-\item{res}{= resolution of the spatstat::distmap}
-
-\item{map}{= preset location to pass to bioMap}
-
-\item{lines}{= logical, if TRUE X1, Y1, X2, Y2 must be supplied to describe the tows}
+\item{mindist}{=}
 }
 \description{
 Assigns station number to tows based on proximity.

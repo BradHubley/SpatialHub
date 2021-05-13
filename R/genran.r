@@ -7,7 +7,9 @@
 #' @param mindist = minimum distance (km) or buffer between stations
 #' @importFrom PBSmapping convUL
 #' @importFrom splancs csr
-#' @importFrom spatstat nndist
+#' @importFrom spatstat.geom nndist
+#' @importFrom spatstat.geom as.ppp
+#' @importFrom spatstat.geom owin
 #' @importFrom splancs as.points
 #' @author Brad Hubley
 #' @export

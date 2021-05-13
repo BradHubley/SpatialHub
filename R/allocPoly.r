@@ -16,7 +16,9 @@
 #' @importFrom PBSmapping calcArea
 #' @importFrom PBSmapping combinePolys
 #' @importFrom PBSmapping convUL
-#' @importFrom spatstat nndist
+#' @importFrom spatstat.geom nndist
+#' @importFrom spatstat.geom as.ppp
+#' @importFrom spatstat.geom owin
 #' @author Brad Hubley
 #' @export
 

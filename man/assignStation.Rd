@@ -19,7 +19,7 @@ assignStation(
 
 \item{maxdist}{= maximum distance between points considered to be the same statiom}
 
-\item{res}{= resolution of the spatstat::distmap}
+\item{res}{= resolution of the spatstat.geom::distmap}
 
 \item{expwin}{= expansion window beyond supplied points that defines the area examined}
 
