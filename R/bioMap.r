@@ -151,7 +151,7 @@ bioMap<-function(area='custom',ylim=c(40,52),xlim=c(-74,-47),mapRes='HR',land.co
 	  if(nafo==TRUE){
 	    #NAFO <- rgdal::readOGR("data/NAFODivisions/Divisions.shp")
 
-	    plot(NAFO,add=T,border='grey',col=NULL)
+	    sp::plot(NAFO,add=T,border='grey',col=NULL)
 	    text(coordinates(NAFO)[,1], coordinates(NAFO)[,2],NAFO$ZONE,col=rgb(0.5,0.5,0.5,0.5),cex=2)
 
 	  }else{
