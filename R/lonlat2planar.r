@@ -7,8 +7,6 @@
 #' @param input_names = undocumented
 #' @param newnames = undocumented
 #' @importFrom sp CRS
-#' @importFrom rgdal project
-#' @importFrom rgdal CRSargs
 #' @export
 
   lonlat2planar = function ( x, proj.type, input_names=c("lon", "lat"), newnames = c("plon", "plat") ) {

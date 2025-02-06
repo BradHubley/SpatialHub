@@ -6,7 +6,6 @@
 #' @param proj.type = undocumented
 #' @param planar.coord.scale = undocumented
 #' @param newnames = undocumented
-#' @importFrom rgdal project
 #' @export
 
   planar2lonlat = function (x, proj.type, planar.coord.scale=NULL, newnames = c("lon", "lat")  ) {
